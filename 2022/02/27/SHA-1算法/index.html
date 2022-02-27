@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="SHA-1算法SHA-1（英语：Secure Hash Algorithm 1，中文名：安全散列算法1）是一种密码散列函数。SHA-1可以生成一个被称为消息（小于2^64）摘要的160位（20字节）散列值，散列值通常的呈现形式为40个十六进制数。 密码散列函数密码散列函数（英语：Cryptographic hash function），又译为加密散列函数、密码散列函数、加密散列函数，是散列函数的一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SHA-1算法">
+<meta property="og:url" content="http://example.com/2022/02/27/SHA-1%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Xsw6_a">
+<meta property="og:description" content="SHA-1算法SHA-1（英语：Secure Hash Algorithm 1，中文名：安全散列算法1）是一种密码散列函数。SHA-1可以生成一个被称为消息（小于2^64）摘要的160位（20字节）散列值，散列值通常的呈现形式为40个十六进制数。 密码散列函数密码散列函数（英语：Cryptographic hash function），又译为加密散列函数、密码散列函数、加密散列函数，是散列函数的一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272048527.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272045274.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272046606.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272047733.jpeg">
+<meta property="article:published_time" content="2022-02-27T12:44:02.000Z">
+<meta property="article:modified_time" content="2022-02-27T12:58:30.592Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="密码学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272048527.jpg">
+  
+  <title>SHA-1算法 - Xsw6_a</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>热爱使我从未停下脚步</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-about-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SHA-1算法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-27 20:44" pubdate>
+        2022年2月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SHA-1算法</h1>
+            
+            <div class="markdown-body">
+              <h1 id="SHA-1算法"><a href="#SHA-1算法" class="headerlink" title="SHA-1算法"></a>SHA-1算法</h1><p><strong>SHA-1</strong>（英语：Secure Hash Algorithm 1，中文名：安全散列算法1）是一种密码散列函数。SHA-1可以生成一个被称为消息（小于2^64）摘要的160<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BD%8D">位</a>（20<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%97%E8%8A%82">字节</a>）散列值，散列值通常的呈现形式为40个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6">十六进制</a>数。</p>
+<h2 id="密码散列函数"><a href="#密码散列函数" class="headerlink" title="密码散列函数"></a>密码散列函数</h2><p><strong>密码散列函数</strong>（英语：Cryptographic hash function），又译为<strong>加密散列函数</strong>、<strong>密码散列函数</strong>、<strong>加密散列函数</strong>，是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B8">散列函数</a>的一种。它被认为是一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%96%AE%E5%90%91%E5%87%BD%E6%95%B8">单向函数</a>，也就是说极其难以由散列函数输出的结果，回推输入的资料是什么。这样的单向函数被称为“现代密码学的驮马”。</p>
+<h2 id="SHA-1算法实现的具体步骤"><a href="#SHA-1算法实现的具体步骤" class="headerlink" title="SHA-1算法实现的具体步骤"></a>SHA-1算法实现的具体步骤</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272048527.jpg" srcset="/img/loading.gif" lazyload alt="153211996026408701"></p>
+<h3 id="术语的概念"><a href="#术语的概念" class="headerlink" title="术语的概念"></a>术语的概念</h3><h4 id="1位-Bit-，字节（Byte）和字（Word）"><a href="#1位-Bit-，字节（Byte）和字（Word）" class="headerlink" title="1位(Bit)，字节（Byte）和字（Word）"></a>1位(Bit)，字节（Byte）和字（Word）</h4><p>SHA1始终把消息当成一个位（bit）字符串来处理。本文中，一个“字”（Word）是32位，而一个“字节”（Byte）是8位。比如，字符串“abc”可以被转换成一个位字符串：<code>01100001 01100010 01100011</code>。它也可以被表示成16进制字符串: <code>0x616263</code>。</p>
+<h4 id="运算符和符号"><a href="#运算符和符号" class="headerlink" title="运算符和符号"></a>运算符和符号</h4><p>下面的逻辑运算符都被运用于“字”（Word）</p>
+<p>X<code>^</code>、<code>&amp;</code>Y  &#x3D; X， Y逻辑与</p>
+<p>X <code>\/</code> Y  &#x3D; X， Y逻辑或</p>
+<p>X <code>XOR</code> Y&#x3D; X， Y逻辑异或</p>
+<p><code>~</code>X   &#x3D;  X逻辑取反</p>
+<p>X<code>+</code>Y定义如下：</p>
+<p>字 X 和 Y 代表两个整数 x 和y, 其中 0 &lt;&#x3D; x &lt; 2^32 且 0 &lt;&#x3D; y &lt; 2^32. 令整数z &#x3D; (x + y) mod 2^32. 这时候 0 &lt;&#x3D; z &lt; 2^32. 将z转换成字Z, 那么就是 Z &#x3D; X + Y.</p>
+<p>循环左移位操作符Sn(X)。X是一个字，n是一个整数，0&lt;&#x3D;n&lt;&#x3D;32。Sn(X) &#x3D; (X&lt;&lt;n)OR(X&gt;&gt;32-n)</p>
+<p><strong>X&lt;&lt;n定义如下</strong>：抛弃最左边的n位数字，将各个位依次向左移动n位，然后用0填补右边的n位（最后结果还是32位）。</p>
+<p><strong>X&gt;&gt;n定义如下</strong>：X&gt;&gt;n是抛弃右边的n位，将各个位依次向右移动n位，然后在左边的n位填0。因此可以叫Sn(X)位循环移位运算</p>
+<h3 id="将消息摘要转换成位字符串"><a href="#将消息摘要转换成位字符串" class="headerlink" title="将消息摘要转换成位字符串"></a>将消息摘要转换成位字符串</h3><p>因为在Sha-1算法中，它的输入必须为位，所以我们首先要将其转化为位字符串。我们以“abc”字符串来说明问题。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lisp">&#x27;a&#x27;=97       &#x27;b&#x27;=98       &#x27;c&#x27;=99<br>&#x27;a&#x27;=01100001 &#x27;b&#x27;=01100010 &#x27;c&#x27;=01100011<br></code></pre></td></tr></table></figure>
+
+<h3 id="对转换后的位字符串进行补位操作"><a href="#对转换后的位字符串进行补位操作" class="headerlink" title="对转换后的位字符串进行补位操作"></a>对转换后的位字符串进行补位操作</h3><p>Sha-1算法标准规定，必须对消息摘要进行补位操作，即将输入的数据进行填充，使得数据长度对512求余的结果为448，填充比特位的最高位补一个1，其余的位补0，如果在补位之前已经满足对512取模余数为448，也要进行补位，在其后补一位1即可。总之，补位是至少补一位，最多补512位，我们依然以“abc”为例，其补位过程如下：</p>
+<p>初始的信息摘要：<code>01100001 01100010 01100011</code></p>
+<p>第一步补位：   <code>01100001 01100010 01100011 1</code></p>
+<p>…..        ……</p>
+<p>补位最后一位：  <code>01100001 01100010 01100011 10.......0</code>(后面补了423个0)</p>
+<p>而后我们将补位操作后的信息摘要转换为十六进制，如下所示：</p>
+<p><code>61626380 00000000 00000000 00000000</code></p>
+<p><code>00000000 00000000 00000000 00000000</code></p>
+<p><code>00000000 00000000 00000000 00000000</code></p>
+<p><code>00000000 00000000</code></p>
+<p>(这里值得注意的是61626380 代表的刚好是4个8位二进制数，也就是指的是<code>01100001 01100010 01100011 10000000</code>)</p>
+<h3 id="附加长度值"><a href="#附加长度值" class="headerlink" title="附加长度值"></a>附加长度值</h3><p>在信息摘要后面附加64bit的信息，用来表示原始信息摘要的长度，在这步操作之后，信息报文便是512bit的倍数。通常来说用一个64位的数据表示原始消息的长度，如果消息长度不大于2^64，那么前32bit就为0，在进行附加长度值操作后，其“abc”数据报文即变成如下形式：</p>
+<p><code>61626380 00000000 00000000 00000000</code></p>
+<p><code>00000000 00000000 00000000 00000000</code></p>
+<p><code>00000000 00000000 00000000 00000000</code></p>
+<p><code>00000000 00000000 00000000 00000018</code></p>
+<p>因为“abc”占3个字节，即24位 ，换算为十六进制即为0x18。</p>
+<h3 id="初始化缓存"><a href="#初始化缓存" class="headerlink" title="初始化缓存"></a>初始化缓存</h3><p>一个160位MD缓冲区用以保存中间和最终散列函数的结果。它可以表示为5个32位的寄存器(H0,H1,H2,H3,H4)。初始化为：</p>
+<p><code>H0 = 0x67452301</code></p>
+<p><code>H1 = 0xEFCDAB89</code></p>
+<p><code>H2 = 0x98BADCFE</code></p>
+<p><code>H3 = 0x10325476</code></p>
+<p><code>H4 = 0xC3D2E1F0</code></p>
+<h3 id="计算消息摘要"><a href="#计算消息摘要" class="headerlink" title="计算消息摘要"></a>计算消息摘要</h3><p>在计算报文之前我们还要做一些基本的工作，就是在我们计算过程中要用到的方法，或定义。</p>
+<p>(1)、循环左移操作符Sn(x),x是一个字，也就是32bit大小的变量，n是一个整数且0&lt;&#x3D;n&lt;&#x3D;32。Sn(X) &#x3D; (X&lt;&lt;n)OR(X&gt;&gt;32-n)</p>
+<p>(2)、在程序中所要用到的常量，这一系列常量字k(0)、k(1)、…k(79)，将其以十六进制表示如下：</p>
+<p><code>Kt = 0x5A827999  (0 &lt;= t &lt;= 19)</code></p>
+<p><code>Kt = 0x6ED9EBA1 (20 &lt;= t &lt;= 39)</code></p>
+<p><code>Kt = 0x8F1BBCDC (40 &lt;= t &lt;= 59)</code></p>
+<p><code>Kt = 0xCA62C1D6 (60 &lt;= t &lt;= 79)</code></p>
+<p>(3)、所要用到的一系列函数</p>
+<p> <code>Ft(b,c,d)  ((b&amp;c)|((~b)&amp;d))   (0 &lt;= t &lt;= 19)</code></p>
+<p> <code>Ft(b,c,d) (b^c^d)       (20 &lt;= t &lt;= 39)</code></p>
+<p> <code>Ft(b,c,d) ((b&amp;c)|(b&amp;d)|(c&amp;d))  (40 &lt;= t &lt;= 59)</code></p>
+<p> <code>Ft(b,c,d) (b^c^d)        (60 &lt;= t &lt;= 79)</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272045274.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h3><p>必须使用进行了补位和补长度后的消息来计算消息摘要。</p>
+<p>计算需要一个缓冲区，由5个32位的字组成，还需要一个80个32位字的缓冲区。第一个5个字的缓冲区被标识为A，B，C，D，E。80个字的缓冲区被标识为W0, W1,…, W79</p>
+<p>另外还需要一个一个字的TEMP缓冲区。</p>
+<p>为了产生消息摘要，在第4部分中定义的16个字的数据块M1, M2,…, Mn</p>
+<p>会依次进行处理，处理每个数据块Mi 包含80个步骤。</p>
+<p>现在开始处理M1, M2, … , Mn。为了处理 Mi,需要进行下面的步骤</p>
+<ul>
+<li><p>(1). 将 Mi 分成 16 个字 W0, W1, … , W15,  W0 是最左边的字<strong>（512bit）</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272046606.gif" srcset="/img/loading.gif" lazyload alt="153211992014696001"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272047733.jpeg" srcset="/img/loading.gif" lazyload alt="img"></p>
+</li>
+<li><p>(2). 对于 t &#x3D; 16 到 79 令 Wt &#x3D; S1(Wt-3 XOR Wt-8 XOR Wt- 14 XOR Wt-16).</p>
+</li>
+<li><p>(3). 令 A &#x3D; H0, B &#x3D; H1, C &#x3D; H2, D &#x3D; H3, E &#x3D; H4.</p>
+</li>
+<li><p>(4) 对于 t &#x3D; 0 到 79，执行下面的循环</p>
+<p>​    TEMP &#x3D; S5(A) + ft(B,C,D) + E + Wt + Kt;</p>
+<p>​    E &#x3D; D; D &#x3D; C; C &#x3D; S30(B); B &#x3D; A; A &#x3D; TEMP;</p>
+</li>
+<li><p>(5). 令 H0 &#x3D; H0 + A, H1 &#x3D; H1 + B, H2 &#x3D; H2 + C, H3 &#x3D; H3 + D, H4 &#x3D; H4 + E</p>
+<p>在处理完所有的 Mn, 后，消息摘要是一个160位的字符串，以下面的顺序标识</p>
+<p>H0 H1 H2 H3 H4。</p>
+</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c"> <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>SHA1Context sha;<br><span class="hljs-type">int</span> i, err;<br><span class="hljs-type">uint8_t</span> Message_Digest[<span class="hljs-number">20</span>];<br><span class="hljs-comment">// testing SHA1</span><br><span class="hljs-type">char</span>  *test = <span class="hljs-string">&quot;213124314124123asdasdas&quot;</span>;<br><span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;\n测试值:\t“%s”\n&quot;</span>,test);<br>err = SHA1Reset(&amp;sha);    <span class="hljs-comment">//erro and return 0</span><br><span class="hljs-keyword">if</span> (err)<br>&#123;<br>    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;SHA1重置错误 %d.\n&quot;</span>, err );<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br>err = ISD_SHA1Input(&amp;sha, (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *)test, <span class="hljs-built_in">strlen</span>(test));<br><span class="hljs-keyword">if</span> (err)<br>&#123;<br>    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;SHA1输入错误 %d.\n&quot;</span>, err );<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br>err = ISD_SHA1Result(&amp;sha, Message_Digest);<br><span class="hljs-keyword">if</span> (err)<br>&#123;<br>    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>,<br>    <span class="hljs-string">&quot;SHA1结果错误 %d, 不能计算摘要值.\n&quot;</span>,<br>    err );<br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;摘要值:\t&quot;</span>);<br>    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">20</span> ; ++i)<br>    &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%02X &quot;</span>, Message_Digest[i]);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>&#125;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E5%A0%82%E7%9F%A5%E8%AF%86/">课堂知识</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/27/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+                        <span class="hidden-mobile">Java反序列化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <!--《添加网站运行时间 -->
+<br/>
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+var now = new Date(); 
+
+function createtime() {
+    //此处修改你的建站时间或者网站上线时间
+    var grt = new Date('02/23/2022 00:00:00');
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24;
+
+    dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+        hnum = "0" + hnum;
+    }
+    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+        mnum = "0" + mnum;
+    }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+        snum = "0" + snum;
+    }
+    document.getElementById("timeDate").innerHTML = "" + dnum + " 天 ";
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()", 250);
+</script>
+
+<!-- 添加网站运行时间》-->
+
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
