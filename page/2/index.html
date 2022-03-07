@@ -200,6 +200,64 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/01/TemplatesImpl%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81/" target="_self">
+          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="TemplatesImpl加载字节码">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/01/TemplatesImpl%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81/" target="_self">
+          TemplatesImpl加载字节码
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/01/TemplatesImpl%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81/" target="_self">
+          
+          
+            
+          
+          TemplatesImpl加载字节码上一篇说到加载字节码。用到了url的loadclass和classloader的defineclass但是呢被其作用域限制住了。那我就会想到怎么去找其他类看看会不会又间接调用defineclass的（当然这是在我复习的时候才会想到的+分析了许多的漏洞），这是以后必须养成的习惯（间接！）
+TemplatesImple
+清晰可见这里的defineClass没有了pr
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-01 22:50" pubdate>
+              2022-03-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JavaWeb/">JavaWeb</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/03/01/Java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81/" target="_self">
           <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="Java动态加载字节码">
         </a>
@@ -700,65 +758,6 @@ Demo12
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2022-02-25 22:18" pubdate>
-              2022-02-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/JavaWeb/">JavaWeb</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/02/25/Java%E4%B8%A4%E7%A7%8D%E4%BB%A3%E7%90%86/" target="_self">
-          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="Java两种代理">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/25/Java%E4%B8%A4%E7%A7%8D%E4%BB%A3%E7%90%86/" target="_self">
-          Java两种代理
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/25/Java%E4%B8%A4%E7%A7%8D%E4%BB%A3%E7%90%86/" target="_self">
-          
-          
-            
-          
-          Java代理静态代理为不修改原先的类，而创建代理类去修改。
-用户接口1234567package Xsw6a;public interface UserServices &#123;   public void select();   public void update();&#125;
-
-实现类1234567891011121314package Xsw6a;import java.sql.S
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-25 20:44" pubdate>
               2022-02-25
             </time>
           </div>

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>RMI+LDAP+JRMP+JNDI（了解）</title>
+    <link href="/2022/03/07/RMI-LDAP-JRMP-JNDI%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89/"/>
+    <url>/2022/03/07/RMI-LDAP-JRMP-JNDI%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h1 id="RMI"><a href="#RMI" class="headerlink" title="RMI"></a>RMI</h1><p><strong>使客户机上运行的程序可以调用远程服务器上的对象。</strong></p><p>这里我们要清楚，在客户端从服务端传递都是以字节序列传递的，最终一定会经过反序列化。</p><h1 id="JRMP"><a href="#JRMP" class="headerlink" title="JRMP"></a>JRMP</h1><p>一种在使用RMI的过程中的协议，可以组织数据格式通过TCP进行传输，从而达到RMI。</p><h1 id="JNDI"><a href="#JNDI" class="headerlink" title="JNDI"></a>JNDI</h1><p>一种java命名和目录的接口。而这里我们可以知道rmi和ldap也是目录服务系统。JNDI的接口下有许多目录系统服务（rmi、ldap），我们能够通过名称等去找到相关的对象，并且把它下载到客户端。</p><h2 id="JNDI注入"><a href="#JNDI注入" class="headerlink" title="JNDI注入"></a>JNDI注入</h2><p>动态加载类这个技术就是为了实现，当本地没有定义远程对象所对应的类的时候，还能对远程对象进行调用。</p><p>具体实现逻辑为：</p><ul><li><p>客户端使用lookup函数访问一个本地不存在对应类的远程对象</p></li><li><p>服务端会返回一个reference对象，对象中会指定一个远程类让其去下载</p></li><li><p>客户端下载远程类并实例化，并且调用远程类的<strong>getObjectInstance</strong>函数获取外部远程对象实例。</p><p>综上，如果我们<strong>可以控制lookup函数的值</strong>，那么让其访问一个我们自己的恶意rmi服务器，让其下载我们构造的恶意class文件并实例话，即可实现任意代码执行。</p></li></ul><h2 id="RMI-LDAP注入版本问题"><a href="#RMI-LDAP注入版本问题" class="headerlink" title="RMI+LDAP注入版本问题"></a>RMI+LDAP注入版本问题</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203071836554.png"></p><p>简单了解一下。因为想弄fastjson。后续在复习具体的实现步骤。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JavaWeb</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Fastjson（入门）</title>
     <link href="/2022/03/07/Fastjson%EF%BC%88%E5%85%A5%E9%97%A8%EF%BC%89/"/>
     <url>/2022/03/07/Fastjson%EF%BC%88%E5%85%A5%E9%97%A8%EF%BC%89/</url>
