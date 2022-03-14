@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Shiro550</title>
+    <link href="/2022/03/14/Shiro550/"/>
+    <url>/2022/03/14/Shiro550/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Shiro550"><a href="#Shiro550" class="headerlink" title="Shiro550"></a>Shiro550</h1><p>安装环境是真的头疼。</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/apache/</span>shiro.git<br>cd shiro<br>git checkout shiro-root-<span class="hljs-number">1.2</span>.<span class="hljs-number">4</span><br></code></pre></td></tr></table></figure><p>然后将samples&#x2F;web文件拖入进idea。然后会有些报错啥的情况，反正弄了半天很头疼。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053356.png" alt="QQ截图20220313222244"></p><p>抓包一下得到：<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053799.png" alt="QQ截图20220313225727"></p><h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142003271.png" alt="QQ截图20220314200304"></p><p>官方说的是<strong>CookieRememberMeManager</strong></p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053853.png" alt="QQ截图20220314200414"></p><p>下入断点<strong>org.apache.shiro.mgt.AbstractRememberMeManager#onSuccessfulLogin</strong></p><p>跟进一下加密。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053927.png" alt="QQ截图20220314200541"></p><p>简单跟了一下流程。<br>这里可以其密钥：</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142018769.png"></p><p>最后会将加密的东西写入cookie。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053515.png" alt="QQ截图20220314201754"></p><p>抓包看一下。</p><p>那么可以来分析一下流程。中间有些不想截图，tomcat调试真的头疼。</p><ul><li>先将用户序列化成数组。</li><li>对其使用ase加密（唯一密钥且我们可知）。</li><li>base64编码。</li><li>写入cookie的rememberme字段。</li></ul><h2 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h2><p>下入断点<strong>org.apache.shiro.mgt.DefaultSecurityManager#getRememberedIdentity</strong></p><p>跟进。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053541.png" alt="QQ截图20220314203449"></p><p>获取cookie内容。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053502.png" alt="QQ截图20220314203529"></p><p>并且进行base64解码。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053022.png" alt="QQ截图20220314203606"></p><p>继续跟进。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203142053805.png" alt="QQ截图20220314203725"></p><p>总结：</p><ul><li>获取cookie值</li><li>base64解码</li><li>aes解密</li><li>反序列化</li></ul><p>这里如何调试。</p><p>1、启动tomcat第一次登陆注册，钩上rememberMe，之后正常登陆，抓包留存</p><p>2、在解密这里下断点，在登录状态下，删除JSESSIONID字段，发送第一步保存的数据包，</p><p>就可解密。搞清楚怎么加密和解密。就来打一下。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Shiro</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>白色情人节</title>
     <link href="/2022/03/14/%E7%99%BD%E8%89%B2%E6%83%85%E4%BA%BA%E8%8A%82/"/>
     <url>/2022/03/14/%E7%99%BD%E8%89%B2%E6%83%85%E4%BA%BA%E8%8A%82/</url>
