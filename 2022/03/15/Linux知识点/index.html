@@ -16,18 +16,38 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="Linux知识点今天很受打击，面试问了几个非常简单的问题我都没有回答上来。（其实都遇到过，只不过真的是忘了。很难受。面试效果是真的差劲。） Linux常用输出文件总结 cat，输出全部内容。 hear，输出前10行内容。 tail more，输出前10行，后续内容以百分比显示，回车键继续输出，按q键退出。 less，可翻页输出。 vim。 grep（同样也可以，前提是知道文件某些内容）  修改文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux知识点">
+<meta property="og:url" content="http://example.com/2022/03/15/Linux%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
 <meta property="og:site_name" content="Xsw6_a">
+<meta property="og:description" content="Linux知识点今天很受打击，面试问了几个非常简单的问题我都没有回答上来。（其实都遇到过，只不过真的是忘了。很难受。面试效果是真的差劲。） Linux常用输出文件总结 cat，输出全部内容。 hear，输出前10行内容。 tail more，输出前10行，后续内容以百分比显示，回车键继续输出，按q键退出。 less，可翻页输出。 vim。 grep（同样也可以，前提是知道文件某些内容）  修改文件">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-15T12:40:57.000Z">
+<meta property="article:modified_time" content="2022-03-15T12:42:21.996Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="web">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>归档 - Xsw6_a</title>
+  <title>Linux知识点 - Xsw6_a</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -54,7 +74,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -167,9 +187,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="Linux知识点">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-15 20:40" pubdate>
+        2022年3月15日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      822 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -182,100 +236,127 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 40 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2022</p>
-    
-    <a href="/2022/03/15/Linux%E7%9F%A5%E8%AF%86%E7%82%B9/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux知识点</span>
-      <time style="float: right;">03-15</time>
-    </a>
-  
-    
-    <a href="/2022/03/15/sql%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sql注入绕过总结</span>
-      <time style="float: right;">03-15</time>
-    </a>
-  
-    
-    <a href="/2022/03/14/Shiro550/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Shiro550</span>
-      <time style="float: right;">03-14</time>
-    </a>
-  
-    
-    <a href="/2022/03/14/%E7%99%BD%E8%89%B2%E6%83%85%E4%BA%BA%E8%8A%82/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">白色情人节</span>
-      <time style="float: right;">03-14</time>
-    </a>
-  
-    
-    <a href="/2022/03/10/XStream%EF%BC%88CVE-2013-7285%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XStream（CVE-2013-7285）</span>
-      <time style="float: right;">03-10</time>
-    </a>
-  
-    
-    <a href="/2022/03/09/Xstream%EF%BC%88%E5%85%A5%E9%97%A8%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XStream（入门）</span>
-      <time style="float: right;">03-09</time>
-    </a>
-  
-    
-    <a href="/2022/03/09/Javasist/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Javasist</span>
-      <time style="float: right;">03-09</time>
-    </a>
-  
-    
-    <a href="/2022/03/09/Fastjson%EF%BC%881-2-25-1-2-47%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Fastjson（1.2.25-1.2.47）</span>
-      <time style="float: right;">03-09</time>
-    </a>
-  
-    
-    <a href="/2022/03/08/Fastjson%EF%BC%881-2-25-1-2-45%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Fastjson（1.2.25-1.2.45）</span>
-      <time style="float: right;">03-08</time>
-    </a>
-  
-    
-    <a href="/2022/03/08/Fastjson%EF%BC%881-2-25-1-2-43%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Fastjson（1.2.25-1.2.43）</span>
-      <time style="float: right;">03-08</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux知识点</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Linux知识点"><a href="#Linux知识点" class="headerlink" title="Linux知识点"></a>Linux知识点</h1><p>今天很受打击，面试问了几个非常简单的问题我都没有回答上来。（其实都遇到过，只不过真的是忘了。很难受。面试效果是真的差劲。）</p>
+<h2 id="Linux常用输出文件总结"><a href="#Linux常用输出文件总结" class="headerlink" title="Linux常用输出文件总结"></a>Linux常用输出文件总结</h2><ul>
+<li>cat，输出全部内容。</li>
+<li>hear，输出前10行内容。</li>
+<li>tail</li>
+<li>more，输出前10行，后续内容以百分比显示，回车键继续输出，按q键退出。</li>
+<li>less，可翻页输出。</li>
+<li>vim。</li>
+<li>grep（同样也可以，前提是知道文件某些内容）</li>
+</ul>
+<h2 id="修改文件权限的区别"><a href="#修改文件权限的区别" class="headerlink" title="修改文件权限的区别"></a>修改文件权限的区别</h2><ol>
+<li>chown (change owner) ： <strong>修改</strong>所属用户与组。</li>
+<li>chmod (change mode) ： <strong>修改</strong>用户的<strong>权限</strong>。</li>
+<li>chgrp（change group）:   <strong>修改</strong>所属组。</li>
+</ol>
+<h2 id="Linux进程查询"><a href="#Linux进程查询" class="headerlink" title="Linux进程查询"></a>Linux进程查询</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dos">ps <span class="hljs-built_in">aux</span><br></code></pre></td></tr></table></figure>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/#board">2</a><a class="page-number" href="/archives/page/3/#board">3</a><a class="page-number" href="/archives/page/4/#board">4</a><a class="extend next" rel="next" href="/archives/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
+<p>a：显示当前终端下的所有进程信息，包括用户的进程。</p>
+<p>u：使用以用户为主的格式输出进程信息。</p>
+<p>x：显示当前用户在所有终端下的进程。</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ps -elf</span><br></code></pre></td></tr></table></figure>
 
+<p>-e：显示系统类所有进程信息。</p>
+<p>-l：使用长（long）格式显示进程信息。</p>
+<p>-f：使用完整的（full）格式显示进程信息。</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq"><span class="hljs-built_in">top</span><br></code></pre></td></tr></table></figure>
 
+<p>以全屏交互式的界面显示进程排名，及时跟踪包括CPU、内存等系统资源占用情况，默认情况下每三秒刷新一次，其作用基本类似于Windows系统中的任务管理器。</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pstree -aup</span><br></code></pre></td></tr></table></figure>
 
+<p>总结：ps（特殊情况树形）和top</p>
+<h2 id="Linux日志查询"><a href="#Linux日志查询" class="headerlink" title="Linux日志查询"></a>Linux日志查询</h2><ul>
+<li>&#x2F;var&#x2F;log&#x2F;utmp 连接时间日志。</li>
+<li>&#x2F;var&#x2F;log&#x2F;lastlog 最后一次成功登录用户的时间和IP</li>
+<li>&#x2F;var&#x2F;log&#x2F;messages linux操作系统常见的系统和服务错误</li>
+<li>&#x2F;var&#x2F;log&#x2F;secure 系统安全日志，记录用户和工作组变坏、用户登录认证的情况</li>
+<li>&#x2F;var&#x2F;log&#x2F;btmp 记录用户登录失败的时间以及ip</li>
+<li>&#x2F;var&#x2F;log&#x2F;cron 记录crond计划服务执行情况（相当于是一个定时任务）</li>
+</ul>
 
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/web/">web</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/15/sql%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">sql注入绕过总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -394,6 +475,19 @@ setInterval("createtime()", 250);
   
 
 
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
