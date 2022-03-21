@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="RMI（1）这一周我都要好好总结一下RMI，安静下来，不要浮躁。先来看看RPC。 RPCRPC（Remote Procedure Call Protocol）远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。  简单的说，RPC就是从一台机器(客户端)上通过参数传递的方式调用另一台机器(服务器)上的一个函数或方法(可以统称为服务)并得到返回的结果。 RP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RMI（1）">
+<meta property="og:url" content="http://example.com/2022/03/21/RMI%EF%BC%881%EF%BC%89/index.html">
+<meta property="og:site_name" content="Xsw6_a">
+<meta property="og:description" content="RMI（1）这一周我都要好好总结一下RMI，安静下来，不要浮躁。先来看看RPC。 RPCRPC（Remote Procedure Call Protocol）远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。  简单的说，RPC就是从一台机器(客户端)上通过参数传递的方式调用另一台机器(服务器)上的一个函数或方法(可以统称为服务)并得到返回的结果。 RP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203191716123.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203191729736.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251378.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251398.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251436.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212214923.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251908.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251806.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251542.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251465.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251888.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212220873.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251612.png">
+<meta property="article:published_time" content="2022-03-21T14:51:25.000Z">
+<meta property="article:modified_time" content="2022-03-21T14:52:18.512Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203191716123.png">
+  
+  <title>RMI（1） - Xsw6_a</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>热爱使我从未停下脚步</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-about-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="RMI（1）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-21 22:51" pubdate>
+        2022年3月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">RMI（1）</h1>
+            
+            <div class="markdown-body">
+              <h1 id="RMI（1）"><a href="#RMI（1）" class="headerlink" title="RMI（1）"></a>RMI（1）</h1><p>这一周我都要好好总结一下RMI，安静下来，不要浮躁。<br>先来看看RPC。</p>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>RPC（Remote Procedure Call Protocol）远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203191716123.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220319171603"></p>
+<p>简单的说，RPC就是从一台机器(客户端)上通过参数传递的方式调用另一台机器(服务器)上的一个函数或方法(可以统称为服务)并得到返回的结果。</p>
+<h3 id="RPC框架"><a href="#RPC框架" class="headerlink" title="RPC框架"></a>RPC框架</h3><ol>
+<li>客户端（Client）</li>
+<li>客户端存根（Client Stub）：<strong>存放服务端地址信息，将客户端的请求参数数据信息打包成网络消息，再通过网络传输发送给服务端</strong></li>
+<li>服务端存根（Server Stub）：<strong>接收客户端发送过来的请求消息并进行解包，然后再调用本地服务进行处理</strong></li>
+<li>服务端（Server）</li>
+</ol>
+<h4 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h4><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203191729736.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220319172927"></p>
+<p>这样我就搞懂了RPC了，很多文章说rmi跟rpc类似。<br>在回过头来看rmi。<br>这里就跟着su18的文章走一下。</p>
+<h2 id="RMI整理流程图"><a href="#RMI整理流程图" class="headerlink" title="RMI整理流程图"></a>RMI整理流程图</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251378.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220319172357"></p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><h3 id="接口（远程调用）"><a href="#接口（远程调用）" class="headerlink" title="接口（远程调用）"></a>接口（远程调用）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.rmi.Remote;<br><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">RemoteInterface</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Remote</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">sayHello</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">sayHello</span><span class="hljs-params">(Object name)</span> <span class="hljs-keyword">throws</span> RemoteException;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">sayGoodbye</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="java-rmi-Remote"><a href="#java-rmi-Remote" class="headerlink" title="java.rmi.Remote"></a>java.rmi.Remote</h4><p>继承了Remote的接口中的方法，才可以被<strong>远程调用</strong>。</p>
+<h4 id="java-rmi-RemoteException"><a href="#java-rmi-RemoteException" class="headerlink" title="java.rmi.RemoteException;"></a>java.rmi.RemoteException;</h4><p>RemoteException是所有在远程调用中所抛出异常的超类，所有能够被远程调用的方法声明，都需要抛出此异常。</p>
+<h3 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><span class="hljs-keyword">import</span> java.rmi.server.UnicastRemoteObject;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RemoteObject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">UnicastRemoteObject</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">RemoteInterface</span> &#123;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">RemoteObject</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException &#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">sayHello</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello My Friend--Xsw6_a&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">sayHello</span><span class="hljs-params">(Object name)</span> <span class="hljs-keyword">throws</span> RemoteException &#123;<br>        <span class="hljs-keyword">return</span> name.getClass().getName();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">sayGoodbye</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Bye&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="java-rmi-server-UnicastRemoteObject"><a href="#java-rmi-server-UnicastRemoteObject" class="headerlink" title="java.rmi.server.UnicastRemoteObject"></a>java.rmi.server.UnicastRemoteObject</h4><p>用于获得一个stub。这个stub封装了底层细节，用于和远程对象进行通信。扩展此类后，RMI 会自动将这个类 export 给远程想要调用它的 Client 端，同时还提供了一些基础的 <code>equals/hashcode/toString</code> 方法。</p>
+<h3 id="RMI（Registry）"><a href="#RMI（Registry）" class="headerlink" title="RMI（Registry）"></a>RMI（Registry）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.rmi.registry.LocateRegistry;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Registry</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            LocateRegistry.createRegistry(<span class="hljs-number">1099</span>);<br>            System.out.println(<span class="hljs-string">&quot;Server Start&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="java-rmi-registry-LocateRegistry"><a href="#java-rmi-registry-LocateRegistry" class="headerlink" title="java.rmi.registry.LocateRegistry"></a>java.rmi.registry.LocateRegistry</h4><p>用于获取到<code>RMI Registry</code>的一个连接，这个连接可以用于获取一个远程对象的引用。也可以创建一个注册中心。</p>
+<h3 id="将待调用的类进行绑定"><a href="#将待调用的类进行绑定" class="headerlink" title="将待调用的类进行绑定"></a>将待调用的类进行绑定</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.MalformedURLException;<br><span class="hljs-keyword">import</span> java.rmi.AlreadyBoundException;<br><span class="hljs-keyword">import</span> java.rmi.Naming;<br><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><span class="hljs-keyword">import</span> java.rmi.registry.LocateRegistry;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RemoteServer</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span>  RemoteException, MalformedURLException, AlreadyBoundException &#123;<br>        <span class="hljs-comment">// 创建远程对象</span><br>        <span class="hljs-type">RemoteInterface</span> <span class="hljs-variable">remoteObject</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RemoteObject</span>();<br>        LocateRegistry.createRegistry(<span class="hljs-number">1099</span>);<br>        <span class="hljs-comment">// 绑定</span><br>        Naming.rebind(<span class="hljs-string">&quot;rmi://127.0.0.1:1099/Hello&quot;</span>, remoteObject);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="java-rmi-Naming"><a href="#java-rmi-Naming" class="headerlink" title="java.rmi.Naming"></a>java.rmi.Naming</h4><p>这是一个 final 类，提供向<code>RMI Registry</code>保存远程对象引用或者从<code>RMI Registry</code>获取远程对象引用的方法。这个类中的方法都是静态方法，每一个方法都包含了一个类型为String的name参数, 这个参数是URL格式，形如:&#x2F;&#x2F;host:port&#x2F;name。</p>
+<ul>
+<li>host 表示注册表所在的主机</li>
+<li>port 表示注册表接受调用的端口号，默认为 1099</li>
+<li>name 表示一个注册 Remote Object 的引用的名称，不能是注册表中的一些关键字</li>
+</ul>
+<h4 id="Naming的函数"><a href="#Naming的函数" class="headerlink" title="Naming的函数"></a>Naming的函数</h4><ul>
+<li>bind(String name, Object obj)：注册对象，把对象和一个名字name绑定，这里的name其实就是URL格式。如果该名字已经与其他对象绑定，则抛出NameAlreadyBoundException错误；</li>
+<li>rebind(String name, Object obj)：注册对象，把对象和一个名字name绑定。如果改名字已经与其他对象绑定，不会抛出NameAlreadyBoundException错误，而是把当前参数obj指定的对象覆盖原先的对象（更暴力）；</li>
+<li>lookup(String name)：查找对象，返回与参数name指定的名字所绑定的对象；</li>
+<li>unbind(String name)：注销对象，取消对象与名字的绑定；</li>
+</ul>
+<h3 id="客户端调用"><a href="#客户端调用" class="headerlink" title="客户端调用"></a>客户端调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.MalformedURLException;<br><span class="hljs-keyword">import</span> java.rmi.Naming;<br><span class="hljs-keyword">import</span> java.rmi.NotBoundException;<br><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RMIClient</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> RemoteException, NotBoundException, MalformedURLException &#123;<br><br><br><br>        <span class="hljs-comment">// lookup and call</span><br>        <span class="hljs-type">RemoteInterface</span> <span class="hljs-variable">stub</span> <span class="hljs-operator">=</span> (RemoteInterface) Naming.lookup(<span class="hljs-string">&quot;rmi://127.0.0.1:1099/Hello&quot;</span>);<br>        System.out.println(stub.sayHello());<br>        System.out.println(stub.sayGoodbye());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="回显"><a href="#回显" class="headerlink" title="回显"></a>回显</h3><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251398.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321211527"></p>
+<p>可以发现成功利用。</p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><h3 id="远程对象的创建"><a href="#远程对象的创建" class="headerlink" title="远程对象的创建"></a>远程对象的创建</h3><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251436.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321220836"></p>
+<p>在初始化时，会创建一个 UnicastServerRef 对象，并调用其 <code>exportObject</code> 方法来 export RemoteObject 这个远程对象。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212214923.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321221357"></p>
+<p>使用 RemoteObjectInvocationHandler 来为我们测试写的 RemoteObject 实现的 RemoteInterface 接口创建动态代理。</p>
+<p>这里我们先仔细看一下这个动态代理，按照以前的思路这里基本都是出发漏洞的地方（<strong>invoke方法</strong>）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251908.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321223031"></p>
+<p>可以清楚的看到这里的，先判断是不是Object的方法如果是就会调用<br><code>invokeObjectMethod(proxy, method, args)</code>，反之调用<code>invokeRemoteMethod(proxy, method, args)</code>，很明显这里会调用<code>return invokeRemoteMethod(proxy, method, args);</code>进入看看。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251806.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321224512"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251542.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321224527"></p>
+<p>而在 <code>invokeRemoteMethod</code> 中实际是委托 RemoteRef 的子类 UnicastRef 的 invoke 方法执行调用。</p>
+<p>后续就是反序列化的方法了。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251465.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321224742"></p>
+<p>然后我们又知道这里是使用了动态代理，在之前的学习中只要使用了动态代理就会加载这个类的的invoke方法，那么这里如果像实现的方法中重写invoke（添加恶意代码，就可以触发。）</p>
+<p>调用这个Target封装。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251888.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321221822"></p>
+<p>然后监听本地端口。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212220873.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321222027"></p>
+<p>然后调用 TCPTransport 的 exportObject 方法将 Target 实例注册到 ObjectTable 中。ObjectTable 用来管理所有发布的服务实例 Target，ObjectTable 提供了根据 ObjectEndpoint 和 Remote 实例两种方式查找 Target 的方法（不同参数的 getTarget 方法）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203212251612.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220321222637"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/RMI/">RMI</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/19/2022-3-19/">
+                        <span class="hidden-mobile">2022.3.19</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <!--《添加网站运行时间 -->
+<br/>
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+var now = new Date(); 
+
+function createtime() {
+    //此处修改你的建站时间或者网站上线时间
+    var grt = new Date('02/23/2022 00:00:00');
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24;
+
+    dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+        hnum = "0" + hnum;
+    }
+    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+        mnum = "0" + mnum;
+    }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+        snum = "0" + snum;
+    }
+    document.getElementById("timeDate").innerHTML = "" + dnum + " 天 ";
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()", 250);
+</script>
+
+<!-- 添加网站运行时间》-->
+
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
