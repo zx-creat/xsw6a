@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>RMI（2）</title>
+    <link href="/2022/03/22/RMI%EF%BC%882%EF%BC%89/"/>
+    <url>/2022/03/22/RMI%EF%BC%882%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h1 id="RMI（2）"><a href="#RMI（2）" class="headerlink" title="RMI（2）"></a>RMI（2）</h1><p>昨天复习到了远程对象的创建，今天继续弄一下注册中心的创建。<br>（弄一会吧，待会要看看红谷杯。）</p><h3 id="远程对象的创建"><a href="#远程对象的创建" class="headerlink" title="远程对象的创建"></a>远程对象的创建</h3><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754200.png" alt="QQ截图20220322162245"></p><p>跟进看看。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754933.png" alt="QQ截图20220322162323"></p><p>我们可以看到这里new了一个RegistryImpl(),继续跟进看看。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221631068.png" alt="QQ截图20220322163112"></p><p>这里先判断了是不是1099端口，以及System.getSecurityManager为空的判断。然后结果为false，接着new了一个LiveRef（）然后又new了一个UnicastServerRef（）。最后调用setup进行配置。跟进。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754393.png" alt="QQ截图20220322163521"></p><p>这里会进行创建动态代理，跟进看看。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754975.png" alt="QQ截图20220322163654"></p><p>这里进行判断，如果需要创建代理的类在本地有 <code>_Stub</code> 的类，则直接使用 createStub 方法反射调用 stub 类的构造方法创建类实例。进入createStub（）。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754669.png" alt="QQ截图20220322163801"></p><p>这里由于是 RegistryImpl 这个类。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754042.png" alt="QQ截图20220322163922"></p><p>系统会找到 RegistryImpl_Stub 这个类并进行实例化，RegistryImpl_Stub 继承了 RemoteStub ，实现了 Registry。这个类实现了 bind&#x2F;list&#x2F;lookup&#x2F;rebind&#x2F;unbind 等 Registry 定义的方法，全部是通过序列化和反序列化来实现的。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221740195.png" alt="QQ截图20220322174028"></p><p>创建完代理类之后，会调用 setSkeleton 方法调用 <code>Util.createSkeleton()</code> 方法创建 skeleton。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754825.png" alt="QQ截图20220322170011"></p><p>总结：</p><ul><li>远程服务对象使用动态代理，invoke 方法最终调用 UnicastRef 的 invoke 方法，注册中心使用 RegistryImpl_Stub，同时还创建了 RegistryImpl_Skel</li><li>远程对象默认随机端口，注册中心默认是 1099（当然也可以指定）</li></ul><h3 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h3><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203221754146.png" alt="QQ截图20220322171112"></p><h2 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h2><ul><li>首先在本地创建了一个包含了具体通信地址、端口的 RegistryImpl_Stub 对象</li><li>通过调用这个本地的 RegistryImpl_Stub 对象的 bind&#x2F;list… 等方法，来与 Registry 端进行通信</li><li>而 RegistryImpl_Stub 的每个方法，都实际上调用了 RemoteRef 的 invoke 方法，进行了一次远程调用链接</li><li>这个过程使用 java 原生序列化及反序列化来实现</li></ul><h2 id="服务调用"><a href="#服务调用" class="headerlink" title="服务调用"></a>服务调用</h2><p>在调用其 lookup 方法时，会向 Registry 端传递序列化的 name ，然后将 Registry 端回传的结果反序列化，很好理解。</p><p>到这里我以及很迷糊了。我终究还是没有弄懂rmi的流程（没有深入代码）。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>RMI</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RMI（1）</title>
     <link href="/2022/03/21/RMI%EF%BC%881%EF%BC%89/"/>
     <url>/2022/03/21/RMI%EF%BC%881%EF%BC%89/</url>
