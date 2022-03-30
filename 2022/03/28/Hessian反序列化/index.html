@@ -23,19 +23,20 @@
 <meta property="og:site_name" content="Xsw6_a">
 <meta property="og:description" content="Hessian反序列化之前搭建了很久的Weblogic环境，最后还是没有搭建成功。难受，看了Y4师傅的文章+虎符。来瞧瞧这个新玩意。（学的比较肤浅） Demo1123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import java.io.Serializable;publi">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208025.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208916.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281155150.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208737.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208900.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208759.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208569.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281134724.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281147761.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315999.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315127.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281205473.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315445.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315372.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315899.png">
 <meta property="article:published_time" content="2022-03-28T04:08:34.000Z">
-<meta property="article:modified_time" content="2022-03-28T13:02:18.182Z">
+<meta property="article:modified_time" content="2022-03-30T05:15:18.782Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208025.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281134724.png">
   
   <title>Hessian反序列化 - Xsw6_a</title>
 
@@ -216,7 +217,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3k 字
+      3.2k 字
     </span>
   
 
@@ -225,7 +226,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9 分钟
+      10 分钟
     </span>
   
 
@@ -262,12 +263,12 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.caucho.hessian.io.HessianInput;<br><span class="hljs-keyword">import</span> com.caucho.hessian.io.HessianOutput;<br><br><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HessianDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">( String[] args )</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Person</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;Twings&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&quot;xsw6a&quot;</span>);<br>serialize(data);<br>unserialize(<span class="hljs-string">&quot;xsw6a.bin&quot;</span>);<br><br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">serialize</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// 序列化</span><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">byteArrayOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">HessianOutput</span> <span class="hljs-variable">hessianOutput</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HessianOutput</span>(byteArrayOutputStream);<br>        hessianOutput.writeObject(obj);<br>        byteArrayOutputStream.toByteArray();<br><br>        <span class="hljs-comment">//写入文件</span><br>        <span class="hljs-type">FileOutputStream</span> <span class="hljs-variable">fileOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-string">&quot;xsw6a.bin&quot;</span>);<br>        fileOutputStream.write(byteArrayOutputStream.toByteArray());<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">unserialize</span><span class="hljs-params">(String Filename)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//读取文件</span><br>        <span class="hljs-type">FileInputStream</span> <span class="hljs-variable">fileInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(Filename);<br>        <span class="hljs-type">byte</span>[] bytes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1024</span>];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">read</span> <span class="hljs-operator">=</span> fileInputStream.read(bytes);<br>        <span class="hljs-comment">//反序列化</span><br>        <span class="hljs-type">ByteArrayInputStream</span> <span class="hljs-variable">byteArrayInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(bytes);<br>        <span class="hljs-type">HessianInput</span> <span class="hljs-variable">hi</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HessianInput</span>(byteArrayInputStream);<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> hi.readObject();<br>        System.out.println(o);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208025.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328113346"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281134724.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328113346"></p>
 <ul>
 <li>transient关键字修饰的属性不能被序列化；</li>
 <li>hessian序列化时，一定要注意子类和父类不能有同名字段。<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6a36dd1fcca8">这里有解释</a>。附上截图。</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208916.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328114008"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281147761.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328114008"></p>
 <ul>
 <li>没有调用setter，getter方法。</li>
 </ul>
@@ -280,13 +281,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">HessianInput</span> <span class="hljs-variable">hi</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HessianInput</span>(byteArrayInputStream);<br></code></pre></td></tr></table></figure>
 
 <p>给入口点下个断点调试一下。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281155150.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328115553"></p>
-<p>跟进。一步一步调试。在**hessianInput#readObject()**中</p>
-<p>发现调用了**readMap(this, type)**。跟进。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208737.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328115815"></p>
-<p>来到<strong>UnsafeDesserialize#readMap()</strong><br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208900.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328120520"></p>
-<p>跟进看一下。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208759.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328120601"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281208569.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328120624"></p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这里一下恍然大悟，跟之前的很多链子都很相似。控制key，调用其hashcode，完成构造链。<br>也就是网上的文章说这个可以和rome链结合的原因。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315999.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328115553"></p>
+<p>跟进。一步一步调试。在**hessianInput#readObject()<strong>中，发现调用了</strong>readMap(this, type)**。跟进。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315127.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328115815"></p>
+<p>来到<strong>UnsafeDesserialize#readMap()</strong><br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203281205473.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220328120520"></p>
+<p>进入循环，先调用<code>in.readObject()</code>从输入流中获取属性名称，接着从之前确定好的<code>this._fieldMap</code>中匹配该属性对应的FieldDeserizlizer，然后调用匹配上的FieldDeserializer进行处理。</p>
+<p>后续如果传入的类型是map，那么就可一调用这里。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315445.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220329224157"></p>
+<p>我调试了很久（在我们传入hashmap类型的时候就会进入这个带有参数的<code>in.readObject</code>）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315372.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220329225140"></p>
+<p>会在这里进入。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202203301315899.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220329225210"></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这里一下恍然大悟，跟之前的很多链子都很相似。控制key，调用其hashcode，完成构造链。<br>也就是Y4师傅说这个可以和rome链结合的原因。</p>
 
             </div>
             <hr>
