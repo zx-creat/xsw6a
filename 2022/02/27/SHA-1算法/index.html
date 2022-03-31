@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272046606.gif">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272047733.jpeg">
 <meta property="article:published_time" content="2022-02-27T12:44:02.000Z">
-<meta property="article:modified_time" content="2022-02-27T12:58:30.592Z">
+<meta property="article:modified_time" content="2022-03-30T16:21:33.478Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="密码学">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@
               <h1 id="SHA-1算法"><a href="#SHA-1算法" class="headerlink" title="SHA-1算法"></a>SHA-1算法</h1><p><strong>SHA-1</strong>（英语：Secure Hash Algorithm 1，中文名：安全散列算法1）是一种密码散列函数。SHA-1可以生成一个被称为消息（小于2^64）摘要的160<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BD%8D">位</a>（20<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%97%E8%8A%82">字节</a>）散列值，散列值通常的呈现形式为40个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6">十六进制</a>数。</p>
 <h2 id="密码散列函数"><a href="#密码散列函数" class="headerlink" title="密码散列函数"></a>密码散列函数</h2><p><strong>密码散列函数</strong>（英语：Cryptographic hash function），又译为<strong>加密散列函数</strong>、<strong>密码散列函数</strong>、<strong>加密散列函数</strong>，是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B8">散列函数</a>的一种。它被认为是一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%96%AE%E5%90%91%E5%87%BD%E6%95%B8">单向函数</a>，也就是说极其难以由散列函数输出的结果，回推输入的资料是什么。这样的单向函数被称为“现代密码学的驮马”。</p>
 <h2 id="SHA-1算法实现的具体步骤"><a href="#SHA-1算法实现的具体步骤" class="headerlink" title="SHA-1算法实现的具体步骤"></a>SHA-1算法实现的具体步骤</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202202272048527.jpg" srcset="/img/loading.gif" lazyload alt="153211996026408701"></p>
-<h3 id="术语的概念"><a href="#术语的概念" class="headerlink" title="术语的概念"></a>术语的概念</h3><h4 id="1位-Bit-，字节（Byte）和字（Word）"><a href="#1位-Bit-，字节（Byte）和字（Word）" class="headerlink" title="1位(Bit)，字节（Byte）和字（Word）"></a>1位(Bit)，字节（Byte）和字（Word）</h4><p>SHA1始终把消息当成一个位（bit）字符串来处理。本文中，一个“字”（Word）是32位，而一个“字节”（Byte）是8位。比如，字符串“abc”可以被转换成一个位字符串：<code>01100001 01100010 01100011</code>。它也可以被表示成16进制字符串: <code>0x616263</code>。</p>
+<h3 id="术语的概念"><a href="#术语的概念" class="headerlink" title="术语的概念"></a>术语的概念</h3><h4 id="1位-Bit-，字节（Byte）和字（Word）"><a href="#1位-Bit-，字节（Byte）和字（Word）" class="headerlink" title="1位(Bit)，字节（Byte）和字（Word）"></a>1位(Bit)，字节（Byte）和字（Word）</h4><p>SHA1始终把消息当成一个位（bit）字符串来处理。比如，字符串“abc”可以被转换成一个位字符串：<code>01100001 01100010 01100011</code>。它也可以被表示成16进制字符串: <code>0x616263</code>。</p>
 <h4 id="运算符和符号"><a href="#运算符和符号" class="headerlink" title="运算符和符号"></a>运算符和符号</h4><p>下面的逻辑运算符都被运用于“字”（Word）</p>
 <p>X<code>^</code>、<code>&amp;</code>Y  &#x3D; X， Y逻辑与</p>
 <p>X <code>\/</code> Y  &#x3D; X， Y逻辑或</p>
@@ -273,19 +273,19 @@
 
 <h3 id="对转换后的位字符串进行补位操作"><a href="#对转换后的位字符串进行补位操作" class="headerlink" title="对转换后的位字符串进行补位操作"></a>对转换后的位字符串进行补位操作</h3><p>Sha-1算法标准规定，必须对消息摘要进行补位操作，即将输入的数据进行填充，使得数据长度对512求余的结果为448，填充比特位的最高位补一个1，其余的位补0，如果在补位之前已经满足对512取模余数为448，也要进行补位，在其后补一位1即可。总之，补位是至少补一位，最多补512位，我们依然以“abc”为例，其补位过程如下：</p>
 <p>初始的信息摘要：<code>01100001 01100010 01100011</code></p>
-<p>第一步补位：   <code>01100001 01100010 01100011 1</code></p>
+<p>第一步补位：   <code>01100001 01100010 01100011 1</code>（填充位）</p>
 <p>…..        ……</p>
 <p>补位最后一位：  <code>01100001 01100010 01100011 10.......0</code>(后面补了423个0)</p>
 <p>而后我们将补位操作后的信息摘要转换为十六进制，如下所示：</p>
 <p><code>61626380 00000000 00000000 00000000</code></p>
 <p><code>00000000 00000000 00000000 00000000</code></p>
 <p><code>00000000 00000000 00000000 00000000</code></p>
-<p><code>00000000 00000000</code></p>
+<p><code>00000000 00000000</code> ······</p>
 <p>(这里值得注意的是61626380 代表的刚好是4个8位二进制数，也就是指的是<code>01100001 01100010 01100011 10000000</code>)</p>
 <h3 id="附加长度值"><a href="#附加长度值" class="headerlink" title="附加长度值"></a>附加长度值</h3><p>在信息摘要后面附加64bit的信息，用来表示原始信息摘要的长度，在这步操作之后，信息报文便是512bit的倍数。通常来说用一个64位的数据表示原始消息的长度，如果消息长度不大于2^64，那么前32bit就为0，在进行附加长度值操作后，其“abc”数据报文即变成如下形式：</p>
-<p><code>61626380 00000000 00000000 00000000</code></p>
-<p><code>00000000 00000000 00000000 00000000</code></p>
-<p><code>00000000 00000000 00000000 00000000</code></p>
+<p><code>61626380 00000000 00000000 00000000</code>………..</p>
+<p><code>00000000 00000000 00000000 00000000</code>…….</p>
+<p><code>00000000 00000000 00000000 00000000</code>……………………</p>
 <p><code>00000000 00000000 00000000 00000018</code></p>
 <p>因为“abc”占3个字节，即24位 ，换算为十六进制即为0x18。</p>
 <h3 id="初始化缓存"><a href="#初始化缓存" class="headerlink" title="初始化缓存"></a>初始化缓存</h3><p>一个160位MD缓冲区用以保存中间和最终散列函数的结果。它可以表示为5个32位的寄存器(H0,H1,H2,H3,H4)。初始化为：</p>
@@ -294,7 +294,7 @@
 <p><code>H2 = 0x98BADCFE</code></p>
 <p><code>H3 = 0x10325476</code></p>
 <p><code>H4 = 0xC3D2E1F0</code></p>
-<h3 id="计算消息摘要"><a href="#计算消息摘要" class="headerlink" title="计算消息摘要"></a>计算消息摘要</h3><p>在计算报文之前我们还要做一些基本的工作，就是在我们计算过程中要用到的方法，或定义。</p>
+<h3 id="计算消息摘要-分块处理"><a href="#计算消息摘要-分块处理" class="headerlink" title="计算消息摘要(分块处理)"></a>计算消息摘要(分块处理)</h3><p>在计算报文之前我们还要做一些基本的工作，就是在我们计算过程中要用到的方法，或定义。</p>
 <p>(1)、循环左移操作符Sn(x),x是一个字，也就是32bit大小的变量，n是一个整数且0&lt;&#x3D;n&lt;&#x3D;32。Sn(X) &#x3D; (X&lt;&lt;n)OR(X&gt;&gt;32-n)</p>
 <p>(2)、在程序中所要用到的常量，这一系列常量字k(0)、k(1)、…k(79)，将其以十六进制表示如下：</p>
 <p><code>Kt = 0x5A827999  (0 &lt;= t &lt;= 19)</code></p>
