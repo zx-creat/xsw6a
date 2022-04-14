@@ -200,6 +200,64 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/15/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AListener%E5%9E%8B/" target="_self">
+          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="内存马：Listener型">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/15/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AListener%E5%9E%8B/" target="_self">
+          内存马：Listener型
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/15/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AListener%E5%9E%8B/" target="_self">
+          
+          
+            
+          
+          Tomcat 内存马：Listener型学习天下大木头
+在Listener内存马中，想要触发Listener。就需要实现EventListener接口。并且还要满足每发送一个请求都需要触发Listener。于是找到了 ServletRequestListener
+Demo123456789101112131415import javax.servlet.ServletRequestEvent;im
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-15 00:00" pubdate>
+              2022-04-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E5%AD%98%E9%A9%AC/">内存马</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
           <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="内存马：Servlet型">
         </a>
@@ -713,68 +771,6 @@ Demo1234567891011121314151617181920212223242526import javax.servlet.*;import jav
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Spring/">Spring</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/04/06/Bugku/" target="_self">
-          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="Bugku">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/06/Bugku/" target="_self">
-          Bugku
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/04/06/Bugku/" target="_self">
-          
-          
-            
-          
-          Bugkuez_java_serialize下载源码，清晰可见cc
-
-在用自己的代码，想进行恶意类加载反弹shell或者创造回显（本地是可以打通发的），均已失败告终。最后用yso，一键生成代码。
-
-这里经过测试cc5.6.7的链均可以打。但是实际上这里满足条件的还有1，3链
-
-1也没有通（lazymap的版本限制应该是），3因为之前进行类加载的时候就打不通，yso的cc3明显利用了，所以也打不通。
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-06 11:42" pubdate>
-              2022-04-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/javaCTF/">javaCTF</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ctf/">ctf</a>
             
           </div>
         
