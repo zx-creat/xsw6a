@@ -16,19 +16,19 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="AspectJWeaver今天做MRCTF的时候，不知道怎么下手。学长给了我提示说这不是yso里面直接打嘛？于是我又找到了su18~~。不看不知道一看吓一跳。 莫怕就是考这个哟。 先跟完链子再说。 利用链12345678HashSet.readObject()    HashMap.put()        HashMap.hash()            TiedMapEntry.hashCo">
+  <meta name="description" content="AspectJWeaver今天做MRCTF的时候，不知道怎么下手。学长给了我提示说这不是yso里面直接打嘛？于是我又找到了su18~~。不看不知道一看吓一跳。 莫怕就是考这个哟。 先跟完链子再说。 pom.xml12345678910&lt;dependency&gt;        &lt;groupId&gt;org.aspectj&lt;&#x2F;groupId&gt;        &lt;art">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AspectJWeaver">
 <meta property="og:url" content="http://example.com/2022/04/24/AspectJWeaver/index.html">
 <meta property="og:site_name" content="Xsw6_a">
-<meta property="og:description" content="AspectJWeaver今天做MRCTF的时候，不知道怎么下手。学长给了我提示说这不是yso里面直接打嘛？于是我又找到了su18~~。不看不知道一看吓一跳。 莫怕就是考这个哟。 先跟完链子再说。 利用链12345678HashSet.readObject()    HashMap.put()        HashMap.hash()            TiedMapEntry.hashCo">
+<meta property="og:description" content="AspectJWeaver今天做MRCTF的时候，不知道怎么下手。学长给了我提示说这不是yso里面直接打嘛？于是我又找到了su18~~。不看不知道一看吓一跳。 莫怕就是考这个哟。 先跟完链子再说。 pom.xml12345678910&lt;dependency&gt;        &lt;groupId&gt;org.aspectj&lt;&#x2F;groupId&gt;        &lt;art">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204241605695.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204241832557.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204241832080.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204241832272.png">
 <meta property="article:published_time" content="2022-04-24T10:32:26.000Z">
-<meta property="article:modified_time" content="2022-04-24T10:33:07.584Z">
+<meta property="article:modified_time" content="2022-04-24T10:37:37.777Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -213,7 +213,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      4.2k 字
     </span>
   
 
@@ -222,7 +222,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12 分钟
+      13 分钟
     </span>
   
 
@@ -257,6 +257,8 @@
               <h1 id="AspectJWeaver"><a href="#AspectJWeaver" class="headerlink" title="AspectJWeaver"></a>AspectJWeaver</h1><p>今天做MRCTF的时候，不知道怎么下手。学长给了我提示说这不是yso里面直接打嘛？于是我又找到了<strong>su18</strong>~~。<br>不看不知道一看吓一跳。<br><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204241605695.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220424160438"></p>
 <p>莫怕就是考这个哟。</p>
 <p>先跟完链子再说。</p>
+<h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.aspectj<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>aspectjweaver<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.9.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>commons-collections<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-collections<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
 <h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HashSet</span>.</span></span>read<span class="hljs-constructor">Object()</span><br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HashMap</span>.</span></span>put<span class="hljs-literal">()</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HashMap</span>.</span></span>hash<span class="hljs-literal">()</span><br>            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TiedMapEntry</span>.</span></span>hash<span class="hljs-constructor">Code()</span><br>                <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TiedMapEntry</span>.</span></span>get<span class="hljs-constructor">Value()</span><br>                    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LazyMap</span>.</span></span>get<span class="hljs-literal">()</span><br>                        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SimpleCache$StorableCachingMap</span>.</span></span>put<span class="hljs-literal">()</span><br>                            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SimpleCache$StorableCachingMap</span>.</span></span>write<span class="hljs-constructor">ToPath()</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="SimpleCache-StorableCachingMap-put"><a href="#SimpleCache-StorableCachingMap-put" class="headerlink" title="SimpleCache$StorableCachingMap.put()"></a>SimpleCache$StorableCachingMap.put()</h2><p><img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/202204241832557.png" srcset="/img/loading.gif" lazyload alt="QQ截图20220424161716"></p>
