@@ -200,6 +200,67 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/27/MRCTF/" target="_self">
+          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="MRCTF">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/27/MRCTF/" target="_self">
+          MRCTF
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/27/MRCTF/" target="_self">
+          
+          
+            
+          
+          MRCTFJava_mem_shell_Filter一进去一个登录框。emmm第一时间就想到了考点为log4j！就简写了。这里在利用dnslog探测出结果后，直接利用JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar。
+
+
+确实也是成功反弹shell，但是找了很久找不到flag在哪里。等官方wp了~~
+
+Java_mem_shell_Basic有个小小的疑问？为
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-27 17:08" pubdate>
+              2022-04-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/javaCTF/">javaCTF</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctf/">ctf</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/04/26/%E7%BD%91%E5%88%83%E6%9D%AF/" target="_self">
           <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="网刃杯">
         </a>
@@ -696,66 +757,6 @@ Demo123456789101112131415import javax.servlet.ServletRequestEvent;im
             <i class="iconfont icon-date"></i>
             <time datetime="2022-04-15 00:00" pubdate>
               2022-04-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%86%85%E5%AD%98%E9%A9%AC/">内存马</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
-          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="内存马：Servlet型">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
-          内存马：Servlet型
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
-          
-          
-            
-          
-          Tomcat 内存马：Servlet型看了su18的文章！
-首先看一下org.apache.catalina.core.ApplicationFilterChain#addServlet。可以知道
-
-我还是按照Filter的思路去创建Servlet。然后思路就可以出来了。先反射创建出StandardContext，使其使用creatWrapper来创建一个恶意的Servlet。
-https://x
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-13 22:00" pubdate>
-              2022-04-13
             </time>
           </div>
         

@@ -200,6 +200,66 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
+          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="内存马：Servlet型">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
+          内存马：Servlet型
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/13/%E5%86%85%E5%AD%98%E9%A9%AC%EF%BC%9AServlet%E5%9E%8B/" target="_self">
+          
+          
+            
+          
+          Tomcat 内存马：Servlet型看了su18的文章！
+首先看一下org.apache.catalina.core.ApplicationFilterChain#addServlet。可以知道
+
+我还是按照Filter的思路去创建Servlet。然后思路就可以出来了。先反射创建出StandardContext，使其使用creatWrapper来创建一个恶意的Servlet。
+https://x
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-13 22:00" pubdate>
+              2022-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E5%AD%98%E9%A9%AC/">内存马</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/04/13/FileUpload2/" target="_self">
           <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="FileUpload2">
         </a>
@@ -715,63 +775,6 @@ Demo1234567891011121314151617181920212223242526import javax.servlet.*;import jav
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/ctf/">ctf</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/04/04/JAVA%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9B%9E%E6%98%BE%E5%AD%A6%E4%B9%A0/" target="_self">
-          <img src="https://cdn.jsdelivr.net/gh/zx-creat/myblog@master/img/20180318083607_sqnts.png" srcset="/img/loading.gif" lazyload alt="JAVA反序列化回显学习">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/04/JAVA%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9B%9E%E6%98%BE%E5%AD%A6%E4%B9%A0/" target="_self">
-          JAVA反序列化回显学习
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/04/04/JAVA%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9B%9E%E6%98%BE%E5%AD%A6%E4%B9%A0/" target="_self">
-          
-          
-            
-          
-          JAVA反序列化回显学习刚刚问涛涛师傅要了一下他出的题，突然想起来很多题都是不出网没有回显的。来学习一下吧。
-Demo12345678910111213141516171819import java.io.BufferedReader;import java.io.InputStream;import java.io.InputStreamReader;import java.nio.charse
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-04 16:03" pubdate>
-              2022-04-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/JavaWeb/">JavaWeb</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java/">java</a>
             
           </div>
         
